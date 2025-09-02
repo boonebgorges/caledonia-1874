@@ -1,0 +1,76 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      tile_version:
+        description: "Tiles prefix (e.g. 1874-v2025-09-02). If left blank and web/tiles.json exists, it will be used."
+        required: false
+      tile_base_url:
+        description: "Base URL for tiles (e.g. https://pub-xxxx.r2.dev). Only used when generating tiles.json."
+        required: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+env:
+  # Default base URL for your R2 Public Dev URL. You can change this later to a custom domain.
+  TILE_BASE_URL: https://pub-ac84f04214d14c64ba9f968faa86c0c2.r2.dev
+  # Optional default version if you want (can be overridden by workflow_dispatch input).
+  DEFAULT_TILE_VERSION: 1874-v2025-09-02
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python (if your build uses it)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build site
+        run: bash scripts/build.sh
+
+      # Create tiles.json only if it's missing. Prefer a committed file.
+      - name: Ensure tiles.json exists (generate if missing)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p web
+          if [[ -f web/tiles.json ]]; then
+            echo "web/tiles.json already present; not overwriting."
+            cat web/tiles.json
+          else
+            TV="${{ github.event.inputs.tile_version }}"
+            [[ -z "${TV}" ]] && TV="${DEFAULT_TILE_VERSION}"
+            TB="${{ github.event.inputs.tile_base_url }}"
+            [[ -z "${TB}" ]] && TB="${TILE_BASE_URL}"
+            echo "{\"plat1874\":\"${TV}\",\"base\":\"${TB}\"}" > web/tiles.json
+            echo "Generated web/tiles.json:"
+            cat web/tiles.json
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
