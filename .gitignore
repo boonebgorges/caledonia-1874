@@ -6,6 +6,8 @@ app/tiles/
 *.aux.xml
 *.qgd
 *.qmd
+/data/qgis/*.gpkg-shm
+/data/qgis/*.gpkg-wal
 
 # Derived data
 data/*.json
