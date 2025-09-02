@@ -38,6 +38,10 @@ import { Store } from './store.js';
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     { maxZoom: 20, attribution: '&copy; OSM' }).addTo(mapO);
 
+	const platTiles = L.tileLayer('https://pub-ac84f04214d14c64ba9f968faa86c0c2.r2.dev/1874-v2025-09-02/{z}/{x}/{y}.png', {
+		minZoom: 12, maxZoom: 19, opacity: 0.75
+	}).addTo(mapC);
+
   await loadAllData();
 
   // Layers
