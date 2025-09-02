@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE database PUBLIC "-//Gramps//DTD Gramps XML 1.7.2//EN"
+"http://gramps-project.org/xml/1.7.2/grampsxml.dtd">
+<database xmlns="http://gramps-project.org/xml/1.7.2/">
+  <header>
+    <created date="2025-09-01" version="6.0.1"/>
+    <researcher>
+    </researcher>
+  </header>
+  <tags>
+    <tag handle="_ffa4388a99a3039f3e011230659" change="1756755034" name="evidence-family" color="#000000" priority="0"/>
+  </tags>
+  <events>
+    <event handle="_ffa3bc98c485625ff93a1d82658" change="1756741930" id="E0000">
+      <type>Birth</type>
+      <dateval val="1832-02-03"/>
+      <place hlink="_ffa3bc8a3262a63372def9507fe"/>
+    </event>
+    <event handle="_ffa3bdb034617687674d3a5704f" change="1756742044" id="E0001">
+      <type>Death</type>
+      <dateval val="1918-01-10"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa419f03217e45861c31598a12" change="1756751718" id="E0002">
+      <type>Immigration</type>
+      <dateval val="1856-07"/>
+    </event>
+    <event handle="_ffa41ace2001e6b017fd26ce4bc" change="1756751808" id="E0003">
+      <type>Marriage</type>
+      <dateval val="1865-02-16"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa41c4483b74af05339ce15beb" change="1756752353" id="E0004">
+      <type>Birth</type>
+      <dateval val="1843-12-26"/>
+      <place hlink="_ffa41f9a1d4507cf0210c123706"/>
+    </event>
+    <event handle="_ffa4207ccfb66213343420abd60" change="1756752404" id="E0005">
+      <type>Death</type>
+      <dateval val="1941-08-07"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4259ac1f791e7cf3365e4bda" change="1756753328" id="E0006">
+      <type>Birth</type>
+      <dateval val="1781" type="about"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa429d9b2838a4b36e67910400" change="1756753386" id="E0007">
+      <type>Birth</type>
+      <dateval val="1804-09-12"/>
+      <place hlink="_ffa4288e6f54082fa003ed95c62"/>
+    </event>
+    <event handle="_ffa42bc12c252e45d5a95e8b219" change="1756753586" id="E0008">
+      <type>Marriage</type>
+      <dateval val="1827-04-17"/>
+      <place hlink="_ffa42bb90c9120664ca6164c994"/>
+    </event>
+    <event handle="_ffa43a8610f1fbdaa122497f43b" change="1756755444" id="E0009">
+      <type>Residence</type>
+      <daterange start="1834" stop="1856"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa44bfa2875dda437b51897182" change="1756756965" id="E0010">
+      <type>Birth</type>
+      <dateval val="1829-12-22"/>
+      <place hlink="_ffa3bc8a3262a63372def9507fe"/>
+    </event>
+    <event handle="_ffa44ca2b5d3e03a07ec0c4644b" change="1756757034" id="E0011">
+      <type>Death</type>
+      <dateval val="1888-12-16"/>
+      <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </event>
+    <event handle="_ffa44d097b67507920246efefd5" change="1756757076" id="E0012">
+      <type>Emigration</type>
+      <dateval val="1857-05-02"/>
+    </event>
+    <event handle="_ffa44ecca7a464721e00d1ef4fe" change="1756757260" id="E0013">
+      <type>Residence</type>
+      <daterange start="1833" stop="1857"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa450dab115d5361c2e396534a" change="1756757476" id="E0014">
+      <type>Birth</type>
+      <dateval val="1837-01-25"/>
+      <place hlink="_ffa450d7a994a57bb6d6719ba90"/>
+    </event>
+    <event handle="_ffa4514b0c940ac3c0e96f66719" change="1756757522" id="E0015">
+      <type>Residence</type>
+      <dateval val="1856" type="about"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa451915bc5e6e9b1b9ca4b906" change="1756757551" id="E0016">
+      <type>Death</type>
+      <dateval val="1925-04-02"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa45523a904fee0e537c2926d1" change="1756757925" id="E0017">
+      <type>Marriage</type>
+      <dateval val="1856-07"/>
+      <place hlink="_ffa450d7a994a57bb6d6719ba90"/>
+    </event>
+    <event handle="_ffa4ba7c104464221c40f8c7016" change="1756768552" id="E0018">
+      <type>Birth</type>
+      <dateval val="1834-08-23"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa4bacec2f6880735d221391a1" change="1756768586" id="E0019">
+      <type>Death</type>
+      <dateval val="1926-07-24"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4bb4a9123b772c138e7f2fae" change="1756769170" id="E0020">
+      <type>Residence</type>
+      <daterange start="1834" stop="1855"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa4bb92e0810e2d8e48ffd6929" change="1756768666" id="E0021">
+      <type>Emigration</type>
+      <dateval val="1855-05-21"/>
+    </event>
+    <event handle="_ffa4bbf61ca37b5e19e74c73fec" change="1756768832" id="E0022">
+      <type>Birth</type>
+      <dateval val="1829-05-19"/>
+      <place hlink="_ffa4bcfc61b453172b1c30ec490"/>
+    </event>
+    <event handle="_ffa4bdb16a024d8cfad0a0ac3b" change="1756768889" id="E0023">
+      <type>Death</type>
+      <dateval val="1902-09-25"/>
+      <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </event>
+    <event handle="_ffa4be1b59c5de6bc3ec1e45ca3" change="1756769008" id="E0024">
+      <type>Marriage</type>
+      <dateval val="1855-08-06"/>
+      <place hlink="_ffa4bea2ffd761607cc3846723d"/>
+    </event>
+    <event handle="_ffa4bf5d48adde631ea425b328" change="1756769064" id="E0025">
+      <type>Immigration</type>
+      <dateval val="1854"/>
+    </event>
+    <event handle="_ffa4e94501f592681a055392905" change="1756773582" id="E0026">
+      <type>Birth</type>
+      <dateval val="1753-09-02"/>
+      <place hlink="_ffa4ea3a980293a4586117ea01f"/>
+    </event>
+    <event handle="_ffa4e98c81f31c5d829f415b442" change="1756773759" id="E0027">
+      <type>Birth</type>
+      <dateval val="1757" quality="estimated"/>
+    </event>
+    <event handle="_ffa4eb0ba2655760e2b253beb38" change="1756773644" id="E0028">
+      <type>Marriage</type>
+      <dateval val="1780-01-12"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa4eba89126555c5f02f10f4c3" change="1756773708" id="E0029">
+      <type>Death</type>
+      <dateval val="1809-02-27"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa4ec4606e5b4b5420c776d18" change="1756773773" id="E0030">
+      <type>Death</type>
+      <dateval val="1839-06-04"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa4ecb69b64afc7bf5c8522352" change="1756773819" id="E0031">
+      <type>Birth</type>
+      <dateval val="1793-10-28"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa4ecdeeb7572a1d1b30732106" change="1756773835" id="E0032">
+      <type>Death</type>
+      <dateval val="1870-11-01"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4ed9feda60537f771719dc6d" change="1756773915" id="E0033">
+      <type>Birth</type>
+      <dateval val="1790-01-12"/>
+    </event>
+    <event handle="_ffa4edef3e53d86888a05a8c8f0" change="1756773947" id="E0034">
+      <type>Death</type>
+      <dateval val="1866-07-14"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4ee2468833f7354764f1b69d" change="1756773969" id="E0035">
+      <type>Marriage</type>
+      <dateval val="1816-04-20"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffa4ef415411f425347ddc3f441" change="1756774085" id="E0036">
+      <type>Birth</type>
+      <dateval val="1834-05-18"/>
+      <place hlink="_ffa415743ce378ca27d042d7ff8"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
+    <event handle="_ffa4ef789a92394ec457b469069" change="1756774108" id="E0037">
+      <type>Residence</type>
+      <dateval val="1856"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+    </event>
+    <event handle="_ffa4efabcff6de751e7bb5d56d2" change="1756774129" id="E0038">
+      <type>Death</type>
+      <dateval val="1876-02-28"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4f0000d678f4cbcb58a71adf" change="1756774164" id="E0039">
+      <type>Immigration</type>
+      <dateval val="1857-11-25"/>
+    </event>
+    <event handle="_ffa4f0dc121483b41a7d22a2630" change="1756774254" id="E0040">
+      <type>Birth</type>
+      <dateval val="1835-07-02"/>
+      <place hlink="_ffa4f0d3e9d5443558d9090008b"/>
+    </event>
+    <event handle="_ffa4f1023752060ac41a1b2205c" change="1756774269" id="E0041">
+      <type>Death</type>
+      <dateval val="1873-04-26"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffa4f15925e76f99ec63d7bc0fa" change="1756774305" id="E0042">
+      <type>Marriage</type>
+      <dateval val="1858-04-22"/>
+      <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </event>
+    <event handle="_ffa4f196b1757730aa1b607fe89" change="1756774330" id="E0043">
+      <type>Immigration</type>
+      <dateval val="1835-08"/>
+    </event>
+  </events>
+  <people>
+    <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Friedrich Ernst</first>
+        <call>Friedrich</call>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa3bc98c485625ff93a1d82658" role="Primary"/>
+      <eventref hlink="_ffa3bdb034617687674d3a5704f" role="Primary"/>
+      <eventref hlink="_ffa419f03217e45861c31598a12" role="Primary"/>
+      <eventref hlink="_ffa41ace2001e6b017fd26ce4bc" role="Primary"/>
+      <eventref hlink="_ffa43a8610f1fbdaa122497f43b" role="Primary"/>
+      <childof hlink="_ffa4250fe4242fa9accb11cb2b0"/>
+      <parentin hlink="_ffa41dc910616f83d015b92c84f"/>
+    </person>
+    <person handle="_ffa41b86370722118ecb73415df" change="1756752406" id="I0001">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Ernestine Amelia Wilhelmine</first>
+        <call>Ernestine</call>
+        <surname>Bohlmann</surname>
+      </name>
+      <eventref hlink="_ffa41c4483b74af05339ce15beb" role="Primary"/>
+      <eventref hlink="_ffa41ace2001e6b017fd26ce4bc" role="Primary"/>
+      <eventref hlink="_ffa4207ccfb66213343420abd60" role="Primary"/>
+      <parentin hlink="_ffa41dc910616f83d015b92c84f"/>
+    </person>
+    <person handle="_ffa425281755f97adf00edca0b1" change="1756773881" id="I0002">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Johann August</first>
+        <call>August</call>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa4259ac1f791e7cf3365e4bda" role="Primary"/>
+      <childof hlink="_ffa4e8de6ba272dac395f6a4577"/>
+      <parentin hlink="_ffa4250fe4242fa9accb11cb2b0"/>
+    </person>
+    <person handle="_ffa425bf3221220d225fdf8fb87" change="1756753390" id="I0003">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Anna Maria</first>
+        <surname>Rittwage</surname>
+      </name>
+      <eventref hlink="_ffa429d9b2838a4b36e67910400" role="Primary"/>
+      <parentin hlink="_ffa4250fe4242fa9accb11cb2b0"/>
+    </person>
+    <person handle="_ffa44b859cd2181430455a6fd2a" change="1756768676" id="I0004">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>August Friedrich</first>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa44bfa2875dda437b51897182" role="Primary"/>
+      <eventref hlink="_ffa44ca2b5d3e03a07ec0c4644b" role="Primary"/>
+      <eventref hlink="_ffa44d097b67507920246efefd5" role="Primary"/>
+      <eventref hlink="_ffa44ecca7a464721e00d1ef4fe" role="Primary"/>
+      <childof hlink="_ffa4250fe4242fa9accb11cb2b0"/>
+      <parentin hlink="_ffa44f1cdc83ab90d16d244b776"/>
+    </person>
+    <person handle="_ffa44fb7e6747f2350b824ed750" change="1756757939" id="I0005">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Ernestine Wilhelmine</first>
+        <surname>Krueger</surname>
+      </name>
+      <eventref hlink="_ffa450dab115d5361c2e396534a" role="Primary"/>
+      <eventref hlink="_ffa4514b0c940ac3c0e96f66719" role="Primary"/>
+      <eventref hlink="_ffa451915bc5e6e9b1b9ca4b906" role="Primary"/>
+      <parentin hlink="_ffa44f1cdc83ab90d16d244b776"/>
+    </person>
+    <person handle="_ffa4b9e94fb3d2c9a36d1f10087" change="1756768934" id="I0006">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Caroline</first>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa4ba7c104464221c40f8c7016" role="Primary"/>
+      <eventref hlink="_ffa4bacec2f6880735d221391a1" role="Primary"/>
+      <eventref hlink="_ffa4bb4a9123b772c138e7f2fae" role="Primary"/>
+      <eventref hlink="_ffa4bb92e0810e2d8e48ffd6929" role="Primary"/>
+      <childof hlink="_ffa4250fe4242fa9accb11cb2b0"/>
+      <parentin hlink="_ffa4bdc48ee48f802e4d6bae640"/>
+    </person>
+    <person handle="_ffa4bbaf1f67de694910bce61af" change="1756769066" id="I0007">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Friedrich Johann</first>
+        <call>Friedrich</call>
+        <surname>Magadanz</surname>
+      </name>
+      <eventref hlink="_ffa4bbf61ca37b5e19e74c73fec" role="Primary"/>
+      <eventref hlink="_ffa4bdb16a024d8cfad0a0ac3b" role="Primary"/>
+      <eventref hlink="_ffa4bf5d48adde631ea425b328" role="Primary"/>
+      <parentin hlink="_ffa4bdc48ee48f802e4d6bae640"/>
+    </person>
+    <person handle="_ffa4e8e9a3b6db58c9a2cb01192" change="1756773716" id="I0008">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Johann Christoph</first>
+        <call>Christoph</call>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa4e94501f592681a055392905" role="Primary"/>
+      <eventref hlink="_ffa4eba89126555c5f02f10f4c3" role="Primary"/>
+      <parentin hlink="_ffa4e8de6ba272dac395f6a4577"/>
+    </person>
+    <person handle="_ffa4e95c27a1f5639377c7214dc" change="1756773777" id="I0009">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Marie Catherine</first>
+        <surname>Henniges</surname>
+      </name>
+      <eventref hlink="_ffa4e98c81f31c5d829f415b442" role="Primary"/>
+      <eventref hlink="_ffa4ec4606e5b4b5420c776d18" role="Primary"/>
+      <parentin hlink="_ffa4e8de6ba272dac395f6a4577"/>
+    </person>
+    <person handle="_ffa4ec68c9d57ac7b93c2b025e8" change="1756773974" id="I0010">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Andreas Friedrich</first>
+        <call>Friedrich</call>
+        <surname>Gorges</surname>
+      </name>
+      <name alt="1" type="Also Known As">
+        <first>Friedrich C</first>
+        <surname>Gorges</surname>
+        <datestr val=""/>
+      </name>
+      <eventref hlink="_ffa4ecb69b64afc7bf5c8522352" role="Primary"/>
+      <eventref hlink="_ffa4ecdeeb7572a1d1b30732106" role="Primary"/>
+      <childof hlink="_ffa4e8de6ba272dac395f6a4577"/>
+      <parentin hlink="_ffa4ed52b802cb2ad0157711952"/>
+    </person>
+    <person handle="_ffa4ed67bc937a15be47aa2bd6c" change="1756773974" id="I0011">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Elisabeth Maria</first>
+        <call>Elisabeth</call>
+        <surname>Rose</surname>
+      </name>
+      <eventref hlink="_ffa4ed9feda60537f771719dc6d" role="Primary"/>
+      <eventref hlink="_ffa4edef3e53d86888a05a8c8f0" role="Primary"/>
+      <parentin hlink="_ffa4ed52b802cb2ad0157711952"/>
+    </person>
+    <person handle="_ffa4eeab5c55b097c79ed6dd52d" change="1756774333" id="I0012">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Wilhelmine</first>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffa4ef415411f425347ddc3f441" role="Primary"/>
+      <eventref hlink="_ffa4ef789a92394ec457b469069" role="Primary"/>
+      <eventref hlink="_ffa4efabcff6de751e7bb5d56d2" role="Primary"/>
+      <eventref hlink="_ffa4f0000d678f4cbcb58a71adf" role="Primary"/>
+      <childof hlink="_ffa4ed52b802cb2ad0157711952"/>
+      <parentin hlink="_ffa4f01320935e87bdec7479f1b"/>
+    </person>
+    <person handle="_ffa4f0357502ad679a6043a399a" change="1756774333" id="I0013">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>August F M</first>
+        <call>August</call>
+        <surname>Wendtland</surname>
+      </name>
+      <eventref hlink="_ffa4f0dc121483b41a7d22a2630" role="Primary"/>
+      <eventref hlink="_ffa4f1023752060ac41a1b2205c" role="Primary"/>
+      <eventref hlink="_ffa4f196b1757730aa1b607fe89" role="Primary"/>
+      <parentin hlink="_ffa4f01320935e87bdec7479f1b"/>
+    </person>
+  </people>
+  <families>
+    <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
+      <rel type="Married"/>
+      <father hlink="_ffa387d5ee82caa64db99a85a71"/>
+      <mother hlink="_ffa41b86370722118ecb73415df"/>
+    </family>
+    <family handle="_ffa4250fe4242fa9accb11cb2b0" change="1756768676" id="F0001">
+      <rel type="Married"/>
+      <father hlink="_ffa425281755f97adf00edca0b1"/>
+      <mother hlink="_ffa425bf3221220d225fdf8fb87"/>
+      <eventref hlink="_ffa42bc12c252e45d5a95e8b219" role="Family"/>
+      <childref hlink="_ffa387d5ee82caa64db99a85a71"/>
+      <childref hlink="_ffa44b859cd2181430455a6fd2a"/>
+      <childref hlink="_ffa4b9e94fb3d2c9a36d1f10087"/>
+    </family>
+    <family handle="_ffa44f1cdc83ab90d16d244b776" change="1756757944" id="F0002">
+      <rel type="Married"/>
+      <father hlink="_ffa44b859cd2181430455a6fd2a"/>
+      <mother hlink="_ffa44fb7e6747f2350b824ed750"/>
+      <eventref hlink="_ffa45523a904fee0e537c2926d1" role="Family"/>
+    </family>
+    <family handle="_ffa4bdc48ee48f802e4d6bae640" change="1756768934" id="F0003">
+      <rel type="Married"/>
+      <father hlink="_ffa4bbaf1f67de694910bce61af"/>
+      <mother hlink="_ffa4b9e94fb3d2c9a36d1f10087"/>
+      <eventref hlink="_ffa4be1b59c5de6bc3ec1e45ca3" role="Family"/>
+    </family>
+    <family handle="_ffa4e8de6ba272dac395f6a4577" change="1756773881" id="F0004">
+      <rel type="Married"/>
+      <father hlink="_ffa4e8e9a3b6db58c9a2cb01192"/>
+      <mother hlink="_ffa4e95c27a1f5639377c7214dc"/>
+      <eventref hlink="_ffa4eb0ba2655760e2b253beb38" role="Family"/>
+      <childref hlink="_ffa425281755f97adf00edca0b1"/>
+      <childref hlink="_ffa4ec68c9d57ac7b93c2b025e8"/>
+    </family>
+    <family handle="_ffa4ed52b802cb2ad0157711952" change="1756774166" id="F0005">
+      <rel type="Married"/>
+      <father hlink="_ffa4ec68c9d57ac7b93c2b025e8"/>
+      <mother hlink="_ffa4ed67bc937a15be47aa2bd6c"/>
+      <eventref hlink="_ffa4ee2468833f7354764f1b69d" role="Family"/>
+      <childref hlink="_ffa4eeab5c55b097c79ed6dd52d"/>
+    </family>
+    <family handle="_ffa4f01320935e87bdec7479f1b" change="1756774333" id="F0006">
+      <rel type="Married"/>
+      <father hlink="_ffa4f0357502ad679a6043a399a"/>
+      <mother hlink="_ffa4eeab5c55b097c79ed6dd52d"/>
+      <eventref hlink="_ffa4f15925e76f99ec63d7bc0fa" role="Family"/>
+    </family>
+  </families>
+  <places>
+    <placeobj handle="_ffa3bc8a3262a63372def9507fe" change="1756753285" id="P0000" type="Village">
+      <pname value="Ludwigsthal"/>
+      <pname value="Kolonia Krasnołęka" lang="Polish"/>
+      <coord long="15.114170476561043" lat="53.59875256799738"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffa3bda9270fe9d5aac9eb0621" change="1756768962" id="P0001" type="Township">
+      <pname value="Caledonia"/>
+      <coord long="-88.77929805818953" lat="44.30728810461125"/>
+      <placeref hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </placeobj>
+    <placeobj handle="_ffa4141f4ad1c7a88ee45af8ad4" change="1756753277" id="P0002" type="Kreis">
+      <pname value="Saatzig"/>
+      <placeref hlink="_ffa415743ce378ca27d042d7ff8"/>
+    </placeobj>
+    <placeobj handle="_ffa415743ce378ca27d042d7ff8" change="1756753260" id="P0003" type="Province">
+      <pname value="Pommern"/>
+      <placeref hlink="_ffa416e066b5fab2478c54439f7"/>
+    </placeobj>
+    <placeobj handle="_ffa4166062919b62f11f2993bf3" change="1756753270" id="P0004" type="Kreis">
+      <pname value="Naugard"/>
+      <placeref hlink="_ffa415743ce378ca27d042d7ff8"/>
+    </placeobj>
+    <placeobj handle="_ffa416e066b5fab2478c54439f7" change="1756751397" id="P0005" type="Country">
+      <pname value="Preußen"/>
+    </placeobj>
+    <placeobj handle="_ffa417700424946e42d5c5c5fe1" change="1756751455" id="P0006" type="Country">
+      <pname value="USA" lang="English"/>
+    </placeobj>
+    <placeobj handle="_ffa4178d993127f421835b1fc46" change="1756751467" id="P0007" type="State">
+      <pname value="Wisconsin, USA"/>
+      <placeref hlink="_ffa417700424946e42d5c5c5fe1"/>
+    </placeobj>
+    <placeobj handle="_ffa417b8b2a3569b225e8b7899f" change="1756768955" id="P0008" type="County">
+      <pname value="Waupaca"/>
+      <placeref hlink="_ffa4178d993127f421835b1fc46"/>
+    </placeobj>
+    <placeobj handle="_ffa41ec6ece4860193fbc9f208c" change="1756753293" id="P0009" type="Province">
+      <pname value="Posen"/>
+      <placeref hlink="_ffa416e066b5fab2478c54439f7"/>
+    </placeobj>
+    <placeobj handle="_ffa41efed1268d79b26c76a46ce" change="1756752248" id="P0010" type="Kreis">
+      <pname value="Czarnikau"/>
+      <placeref hlink="_ffa41ec6ece4860193fbc9f208c"/>
+    </placeobj>
+    <placeobj handle="_ffa41f9a1d4507cf0210c123706" change="1756752311" id="P0011" type="Village">
+      <pname value="Sophienthal"/>
+      <coord long="16.50321806316056" lat="52.910683565528366"/>
+      <placeref hlink="_ffa41efed1268d79b26c76a46ce"/>
+    </placeobj>
+    <placeobj handle="_ffa4268ca2ef6b4f8b7e888ae1" change="1756753302" id="P0012" type="Province">
+      <pname value="Sachsen"/>
+      <placeref hlink="_ffa416e066b5fab2478c54439f7"/>
+    </placeobj>
+    <placeobj handle="_ffa4275c2cd8dd0a5d8a6d6762" change="1756753125" id="P0013" type="Kreis">
+      <pname value="Calbe an der Saale"/>
+      <placeref hlink="_ffa4268ca2ef6b4f8b7e888ae1"/>
+    </placeobj>
+    <placeobj handle="_ffa427cddb05c7386861b6c572c" change="1756753172" id="P0014" type="Village">
+      <pname value="Groß Salze"/>
+      <coord long="11.72054166558585" lat="52.00431104792612"/>
+      <placeref hlink="_ffa4275c2cd8dd0a5d8a6d6762"/>
+    </placeobj>
+    <placeobj handle="_ffa4288e6f54082fa003ed95c62" change="1756753250" id="P0015" type="Village">
+      <pname value="Saarow"/>
+      <coord long="14.991172614984345" lat="53.384197184898404"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffa42bb90c9120664ca6164c994" change="1756755586" id="P0016" type="Village">
+      <pname value="Langkafel"/>
+      <coord long="15.113323249171433" lat="53.619815446506756"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffa43a81752426f7e4730862312" change="1756755580" id="P0017" type="Village">
+      <pname value="Albertinenhof"/>
+      <coord long="15.303031727773435" lat="53.50084461093889"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffa450d7a994a57bb6d6719ba90" change="1756757475" id="P0018" type="Village">
+      <pname value="Braunsforth"/>
+      <coord long="15.344796508764581" lat="53.51364572137061"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffa4bc2c9f77b0a1c2fe1e4b090" change="1756768729" id="P0019" type="Kreis">
+      <pname value="Regenwalde"/>
+      <placeref hlink="_ffa415743ce378ca27d042d7ff8"/>
+    </placeobj>
+    <placeobj handle="_ffa4bcfc61b453172b1c30ec490" change="1756768814" id="P0020" type="Unknown">
+      <pname value="Gienow"/>
+      <coord long="15.666708110316813" lat="53.503806181625265"/>
+      <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffa4be4414c7f1d4fa0a38574e6" change="1756768949" id="P0021" type="County">
+      <pname value="Milwaukee"/>
+      <placeref hlink="_ffa4178d993127f421835b1fc46"/>
+    </placeobj>
+    <placeobj handle="_ffa4bea2ffd761607cc3846723d" change="1756768987" id="P0022" type="City">
+      <pname value="Milwaukee"/>
+      <coord long="-87.91179967736294" lat="43.042124323398546"/>
+      <placeref hlink="_ffa4be4414c7f1d4fa0a38574e6"/>
+    </placeobj>
+    <placeobj handle="_ffa4ea006462522292fb5924c95" change="1756773535" id="P0023" type="Kreis">
+      <pname value="Wanzleben"/>
+      <placeref hlink="_ffa4268ca2ef6b4f8b7e888ae1"/>
+    </placeobj>
+    <placeobj handle="_ffa4ea3a980293a4586117ea01f" change="1756773558" id="P0024" type="Unknown">
+      <pname value="Welsleben"/>
+      <coord long="11.638881027569" lat="52.0010188441813"/>
+      <placeref hlink="_ffa4ea006462522292fb5924c95"/>
+    </placeobj>
+    <placeobj handle="_ffa4f0d3e9d5443558d9090008b" change="1756774250" id="P0025" type="Village">
+      <pname value="Zeinicke"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+  </places>
+</database>

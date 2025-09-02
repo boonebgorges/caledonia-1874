@@ -1,0 +1,13 @@
+# Builds
+/web/
+app/tiles/
+
+# QGIS junk
+*.aux.xml
+*.qgd
+*.qmd
+
+# Derived data
+data/*.json
+
+notes.txt
