@@ -2,111 +2,18 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Plat + OSM</title>
+  <title>Caledonia 1874</title>
   <base href="./" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/dual.css">
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>html,body,#map{height:100%;margin:0}</style>
+  <script type="module" src="js/main-dual.js"></script>
 </head>
 <body>
-<div id="map"></div>
 
-<script>
-(async function () {
-  const base = document.querySelector( 'base' )?.href || window.location.href
-  console.log(base)
-  const get = p => new URL( p, base );
+<div id="app"></div>
 
-  const map = L.map('map').setView([44.2934, -88.8006], 13);
-
-  // Basemap + your tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-              {maxZoom:20, attribution:'&copy; OSM'}).addTo(map);
-
-  const platTiles = L.tileLayer('https://pub-ac84f04214d14c64ba9f968faa86c0c2.r2.dev/1874-v2025-09-02/{z}/{x}/{y}.png', {
-    minZoom: 12, maxZoom: 19, opacity: 0.75
-  }).addTo(map);
-
-  // --- Load data we need for crosswalks ---
-  const personsUrl = get('data/persons.json');
-  const parcelIndexUrl = get('data/parcel_index.json');
-  const originsUrl = get('data/origins.json');
-  const [persons, parcelIndex, origins] = await Promise.all([
-    fetch(personsUrl).then(r=>r.json()),
-    fetch(parcelIndexUrl).then(r=>r.json()),
-    fetch(originsUrl).then(r=>r.json())
-  ]);
-
-  // --- Helper: memoized lineage from a place handle up its parents ---
-  const lineageCache = new Map();
-  function placeLineage(handle, opts = {}) {
-    if (!handle || !origins[handle]) return null;
-    if (lineageCache.has(handle)) return lineageCache.get(handle);
-
-    const { stopTypes = [], includeAlt = false, altLang = null } = opts;
-    const names = [];
-    let h = handle;
-    while (h && origins[h]) {
-      const p = origins[h];
-      let label = p.name || h;
-
-      // Optional: prefer an alternate name in a given language (e.g., modern Polish)
-      if (includeAlt && altLang && Array.isArray(p.alt_names)) {
-        const alt = p.alt_names.find(a => (a.lang || '').toLowerCase() === altLang.toLowerCase());
-        if (alt && alt.value) label = `${label} (${alt.value})`;
-      }
-
-      names.push(label);
-      if (stopTypes.includes(p.type)) break; // e.g., stop at Country
-      h = p.parent || null;
-    }
-    const res = { labels: names, text: names.join(', ') };
-    lineageCache.set(handle, res);
-    return res;
-  }
-
-  // --- Helper: format owners for a parcel key ---
-  function ownersWithOriginsForKey(key) {
-    const personIds = parcelIndex[key] || [];
-    return personIds.map(pid => {
-      const p = persons[pid];
-      if (!p) return { name: pid, originText: '(unknown)', method: null };
-      const lin = placeLineage(p.origin_place_handle, { stopTypes: ['Country'] });
-      return {
-        name: p.display_name || pid,
-        originText: lin?.text || '(origin unknown)',
-        method: p.origin_method || null
-      };
-    });
-  }
-
-  // --- Load and display parcels ---
-  const parcels = await fetch(get('data/parcels-1874.geojson')).then(r=>r.json());
-
-  const layer = L.geoJSON(parcels, {
-    style: { color:'#333', weight:2, fillOpacity:0.15 },
-    onEachFeature: (f, lyr) => {
-      const year = f.properties.map_year || 1874;
-      const key = `${year}:${f.properties.parcel_id}`;
-      const owners = ownersWithOriginsForKey(key);
-
-      const ownersHtml = owners.length
-        ? `<ul style="margin:.25rem 0 .1rem 1.1rem; padding:0;">
-             ${owners.map(o => `<li>${o.name} — ${o.originText}${o.method ? ` <span style="opacity:.7">[${o.method}]</span>` : ''}</li>`).join('')}
-           </ul>`
-        : '<i>No linked persons</i>';
-
-      const html =
-        `<b>${f.properties.parcel_id}</b>${f.properties.plss_desc ? ` (${f.properties.plss_desc})` : ''}` +
-        `<br><b>Owners:</b>${ownersHtml}`;
-
-      lyr.bindPopup(html);
-    }
-  }).addTo(map);
-
-  try { map.fitBounds(layer.getBounds(), { padding:[16,16] }); } catch(e) {}
-})();
-</script>
 </body>
 </html>
