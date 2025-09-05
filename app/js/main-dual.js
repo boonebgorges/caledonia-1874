@@ -70,7 +70,7 @@ import { Store } from './store.js';
   // --- Selection-based recentering (no continuous sync) ---
   const PADDING = [20, 20];
   const MAX_Z_ORIGINS = 11; // don’t over-zoom pins
-  const MAX_Z_PARCELS  = 17;
+  const MAX_Z_PARCELS  = 15;
 
   Store.subscribe(({ activeParcels, activeOrigins }) => {
     // If origins are active, recenter Origins map to those markers
