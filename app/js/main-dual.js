@@ -42,6 +42,9 @@ import { Store } from './store.js';
 		minZoom: 12, maxZoom: 19, opacity: 0.75
 	}).addTo(mapC);
 
+	L.control.scale({ imperial: true, metric: true }).addTo(mapC);
+	L.control.scale({ imperial: true, metric: true }).addTo(mapO);
+
   await loadAllData();
 
   // Layers
