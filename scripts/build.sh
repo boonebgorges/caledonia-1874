@@ -9,6 +9,8 @@ rm -rf "$OUTDIR"
 mkdir -p "$OUTDIR/data"
 
 # 2) Export JSONs from Gramps + associations
+gramps -O "Caledonia" -e - -f gramps --yes > data/caledonia.gramps
+
 python3 "$ROOT/scripts/export_from_gramps.py" \
   --gramps "$ROOT/data/caledonia.gramps" \
   --outdir "$OUTDIR/data" \
