@@ -9,7 +9,13 @@ app/tiles/
 /data/qgis/*.gpkg-shm
 /data/qgis/*.gpkg-wal
 
+# Gramps backup file
+data/*.gramps.bak
+
 # Derived data
 data/*.json
+
+# Temp files
+data/*.csv#
 
 notes.txt
