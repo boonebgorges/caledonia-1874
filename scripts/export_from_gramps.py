@@ -155,24 +155,56 @@ def read_gramps(path):
             id_by_handle[ph] = pid
             handle_by_id[pid] = ph
 
+
+    # families: gather family eventrefs and map them to members
+    family_events_by_person = {}
+    for fam in root.findall(f"{NS}families/{NS}family"):
+        evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref")]
+
+        members = []
+        fa = fam.find(f"{NS}father")
+        mo = fam.find(f"{NS}mother")
+        if fa is not None and fa.get("hlink"): members.append(fa.get("hlink"))
+        if mo is not None and mo.get("hlink"): members.append(mo.get("hlink"))
+        for cr in fam.findall(f"{NS}childref"):
+            if cr.get("hlink"):
+                members.append(cr.get("hlink"))
+
+        for ph in set(members):
+            if evrefs:
+                family_events_by_person.setdefault(ph, set()).update(evrefs)
+
+    # attach to people
+    for ph in people.keys():
+        people[ph]["family_event_refs"] = sorted(family_events_by_person.get(ph, []))
+
     return people, events, places, children_by_parent, id_by_handle, handle_by_id
 
 def choose_origin_for_person(person, events):
-    # Gather this person's events
-    evs = [events[h] for h in person["event_refs"] if h in events]
+    # gather this person's own events + family events
+    ev_handles = []
+    ev_handles.extend([h for h in person.get("event_refs", []) if h in events])
+    ev_handles.extend([h for h in person.get("family_event_refs", []) if h in events])
+
+    evs = [events[h] for h in ev_handles]
+
     # immigration date (latest, if multiple)
     imigs = sorted([e["date"] for e in evs if e["type"].lower() == "immigration" and e["date"][0] is not None])
     imig = imigs[-1] if imigs else (None,None,None)
 
-    # candidate Residences
-    resid = [e for e in evs if e["type"].lower() == "residence" and e.get("place")]
+    # candidates = ANY dated event with a place
+    candidates_all = [e for e in evs if e.get("place") and e.get("date") and e["date"][0] is not None]
 
-    # Rank: evidence tag (direct > family > fallback > none), then prefer ≤ immigration, then latest date
+    # ranking: evidence tag (direct > family > fallback > none),
+    # then whether it’s ≤ immigration (prefer True),
+    # then latest date wins
     candidates = sorted(
-        resid,
-        key=lambda e: (tag_rank(e["tags"]),
-                       0 if tuple_leq(e["date"], imig) else 1,
-                       (e["date"][0] or 0, e["date"][1] or 0, e["date"][2] or 0))
+        candidates_all,
+        key=lambda e: (
+            tag_rank(e.get("tags")),
+            0 if tuple_leq(e["date"], imig) else 1,
+            (e["date"][0] or 0, e["date"][1] or 0, e["date"][2] or 0)
+        )
     )
 
     origin_place = None
@@ -180,14 +212,15 @@ def choose_origin_for_person(person, events):
     origin_event_date = None
 
     for e in candidates:
-        if tag_rank(e["tags"]) <= 1 or tuple_leq(e["date"], imig):  # tagged good OR ≤ imig
+        # If we know immigration, require e <= immigration. If we don't, accept the top-ranked event.
+        if imig[0] is None or tuple_leq(e["date"], imig):
             origin_place = e["place"]
             origin_event_date = e["date"]
-            # pick the first evidence-* tag if present, else "residence"
-            origin_method = next((t for t in e["tags"] if t.lower().startswith("evidence-")), "residence")
+            # keep the nice method labeling you had
+            origin_method = next((t for t in e.get("tags", []) if t.lower().startswith("evidence-")), e["type"].lower() or "event")
             break
 
-    # fallback: birth
+    # fallback: birth (unchanged)
     if origin_place is None:
         births = [e for e in evs if e["type"].lower() == "birth" and e.get("place")]
         if births:
