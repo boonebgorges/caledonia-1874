@@ -623,6 +623,36 @@
       <dateval val="1853-04-29"/>
       <place hlink="_ffafee83d523e63a5cac9eb805"/>
     </event>
+    <event handle="_ffb018cf7a938262d5f53650d0d" change="1757073825" id="E0126">
+      <type>Birth</type>
+      <dateval val="1832-12-12"/>
+      <place hlink="_ffb0199d78815e5196a97ed566b"/>
+    </event>
+    <event handle="_ffb01a02d191c515fdf80882d1e" change="1757073848" id="E0127">
+      <type>Death</type>
+      <dateval val="1911-10-08"/>
+      <place hlink="_ffab10cc2e57cba2dfd5910a4d9"/>
+    </event>
+    <event handle="_ffb01a8d7964bf9097f1f47cd21" change="1757073905" id="E0128">
+      <type>Birth</type>
+      <dateval val="1839-02-06"/>
+    </event>
+    <event handle="_ffb01b23064206baa73a0357f6c" change="1757073966" id="E0129">
+      <type>Death</type>
+      <dateval val="1917-02-19"/>
+      <place hlink="_ffb01b1ef1f42bec464e3dc6ee2"/>
+    </event>
+    <event handle="_ffb01b912504310cc98c7abf6a" change="1757074011" id="E0130">
+      <type>Marriage</type>
+      <dateval val="1857-02-24"/>
+      <place hlink="_ffb0199d78815e5196a97ed566b"/>
+    </event>
+    <event handle="_ffb01bf6c88556fe9e3d341196a" change="1757074053" id="E0131">
+      <type>Residence</type>
+      <dateval val="1856"/>
+      <place hlink="_ffb0199d78815e5196a97ed566b"/>
+      <tagref hlink="_ffa4388a99a3039f3e011230659"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -1189,6 +1219,27 @@
       <eventref hlink="_ffafee8b3be62a42bfee0247e0e" role="Primary"/>
       <parentin hlink="_ffafed98fe83aee129fbd48b3f8"/>
     </person>
+    <person handle="_ffb0187fde65c8739507da0eb4a" change="1757074054" id="I0051">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Carl Friedrich Wilhelm</first>
+        <call>Carl</call>
+        <surname>Pommerening</surname>
+      </name>
+      <eventref hlink="_ffb018cf7a938262d5f53650d0d" role="Primary"/>
+      <eventref hlink="_ffb01a02d191c515fdf80882d1e" role="Primary"/>
+      <parentin hlink="_ffb01a15d04605046993033b9f0"/>
+    </person>
+    <person handle="_ffb01a5f4883023adf2bfae7818" change="1757074054" id="I0052">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Auguste Dorothea Louise</first>
+        <surname>Pofahl</surname>
+      </name>
+      <eventref hlink="_ffb01a8d7964bf9097f1f47cd21" role="Primary"/>
+      <eventref hlink="_ffb01b23064206baa73a0357f6c" role="Primary"/>
+      <parentin hlink="_ffb01a15d04605046993033b9f0"/>
+    </person>
   </people>
   <families>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
@@ -1355,6 +1406,13 @@
       <mother hlink="_ffafedb7ec6403117d128d237a"/>
       <eventref hlink="_ffafef0defd5fd383db9ac83535" role="Family"/>
     </family>
+    <family handle="_ffb01a15d04605046993033b9f0" change="1757074054" id="F0026">
+      <rel type="Married"/>
+      <father hlink="_ffb0187fde65c8739507da0eb4a"/>
+      <mother hlink="_ffb01a5f4883023adf2bfae7818"/>
+      <eventref hlink="_ffb01b912504310cc98c7abf6a" role="Family"/>
+      <eventref hlink="_ffb01bf6c88556fe9e3d341196a" role="Family"/>
+    </family>
   </families>
   <places>
     <placeobj handle="_ffa3bc8a3262a63372def9507fe" change="1756753285" id="P0000" type="Village">
@@ -1391,7 +1449,7 @@
       <pname value="Wisconsin, USA"/>
       <placeref hlink="_ffa417700424946e42d5c5c5fe1"/>
     </placeobj>
-    <placeobj handle="_ffa417b8b2a3569b225e8b7899f" change="1756768955" id="P0008" type="County">
+    <placeobj handle="_ffa417b8b2a3569b225e8b7899f" change="1757073961" id="P0008" type="County">
       <pname value="Waupaca"/>
       <placeref hlink="_ffa4178d993127f421835b1fc46"/>
     </placeobj>
@@ -1577,6 +1635,20 @@
       <pname value="Stramehl"/>
       <coord long="15.527140651924615" lat="53.65292325291926"/>
       <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffb01904e5c696258f24240d7bc" change="1757073744" id="P0050" type="Kreis">
+      <pname value="Neustettin"/>
+      <placeref hlink="_ffa415743ce378ca27d042d7ff8"/>
+    </placeobj>
+    <placeobj handle="_ffb0199d78815e5196a97ed566b" change="1757073806" id="P0051" type="Village">
+      <pname value="Grünewald"/>
+      <coord long="16.415121968159834" lat="53.88472531146293"/>
+      <placeref hlink="_ffb01904e5c696258f24240d7bc"/>
+    </placeobj>
+    <placeobj handle="_ffb01b1ef1f42bec464e3dc6ee2" change="1757073964" id="P0052" type="Township">
+      <pname value="Lebanon"/>
+      <coord long="-88.79179276351393" lat="44.462639575857786"/>
+      <placeref hlink="_ffa417b8b2a3569b225e8b7899f"/>
     </placeobj>
   </places>
 </database>
