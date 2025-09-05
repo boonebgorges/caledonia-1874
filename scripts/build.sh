@@ -15,7 +15,12 @@ python3 "$ROOT/scripts/export_from_gramps.py" \
   --places origins \
   --associations "$ROOT/data/associations.csv"
 
-# 3) Export parcels for the web
+# 3) Build families aggregate + crosswalk
+
+# deps for the families builder (PyYAML only)
+python3 scripts/build_families.py
+
+# 4) Export parcels for the web
 SRC_GPKG="$ROOT/data/qgis/parcels-1874.gpkg"
 LAYER="parcels-1874-vectors"
 OUT="$OUTDIR/data/parcels-1874.geojson"

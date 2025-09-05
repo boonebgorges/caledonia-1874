@@ -63,17 +63,30 @@ def tag_rank(tags):
 def read_gramps(path):
     root = ET.parse(path).getroot()
 
+    # Helper: split a family_id value that might be "gorges" or "gorges;ploetz"
+    def split_multi(val):
+        if not val:
+            return []
+        return [p.strip() for p in val.split(";") if p.strip()]
+
     # tags: handle -> name
     tagname_by_handle = {}
     for tag in root.findall(f"{NS}tags/{NS}tag"):
         tagname_by_handle[tag.get("handle")] = tag.get("name")
 
     # places
+    # - keep your existing structure keyed by HANDLE
+    # - also keep id<->handle crosswalks so you can use P#### later
     places = {}  # handle -> dict
+    place_id_by_handle = {}
+    place_handle_by_id = {}
     children_by_parent = {}
+
     for po in root.findall(f"{NS}places/{NS}placeobj"):
         h = po.get("handle")
+        pid = po.get("id")  # e.g., "P0014"
         typ = po.get("type") or "Unknown"
+
         # primary name = first pname without lang, else first
         names = []
         primary = None
@@ -97,13 +110,18 @@ def read_gramps(path):
             parent = pr.get("hlink")
 
         places[h] = {
+            "id": pid,  # NEW: preserve Gramps Place ID
             "name": primary or h,
             "type": typ,
             "lat": lat,
             "lon": lon,
             "parent": parent,
-            "alt_names": [n for n in names if n.get("value") != primary]
+            "alt_names": [n for n in names if n.get("value") != primary],
         }
+        if pid:
+            place_id_by_handle[h] = pid
+            place_handle_by_id[pid] = h
+
         if parent:
             children_by_parent.setdefault(parent, []).append(h)
 
@@ -116,23 +134,30 @@ def read_gramps(path):
         ev_tags = []
         for tr in ev.findall(f"{NS}tagref"):
             nm = tagname_by_handle.get(tr.get("hlink"))
-            if nm: ev_tags.append(nm)
+            if nm:
+                ev_tags.append(nm)
         place = None
         pl = ev.find(f"{NS}place")
         if pl is not None:
-            place = pl.get("hlink")
+            place = pl.get("hlink")  # place HANDLE (use place_id_by_handle later if you want P####)
+
         events[eh] = {
             "type": typ,
             "date": date_tuple_from_event(ev),
             "place": place,
-            "tags": ev_tags
+            "tags": ev_tags,
         }
-
 
     # people: handle -> dict
     people = {}
     id_by_handle = {}
     handle_by_id = {}
+
+    # NEW: indexes for families
+    # We'll store by **person ID** (I####) for stable public use
+    person_family_index = {}  # person ID -> [family_id, ...]
+    family_person_index = {}  # family_id -> [person ID, ...]
+
     for p in root.findall(f"{NS}people/{NS}person"):
         ph = p.get("handle")
         pid = p.get("id")
@@ -144,7 +169,8 @@ def read_gramps(path):
             call  = (nm.findtext(f"{NS}call") or "").strip()
             sur   = (nm.findtext(f"{NS}surname") or "").strip()
             display = (call or first).strip()
-            if sur: display = (display + " " + sur).strip()
+            if sur:
+                display = (display + " " + sur).strip()
         else:
             display = ph
 
@@ -155,8 +181,25 @@ def read_gramps(path):
             id_by_handle[ph] = pid
             handle_by_id[pid] = ph
 
+        # NEW: parse <attribute type="family_id" value="...">
+        fam_ids_raw = []
+        for attr in p.findall(f"{NS}attribute"):
+            if (attr.get("type") or "").lower() == "family_id":
+                fam_ids_raw.extend(split_multi(attr.get("value") or ""))
 
-    # families: gather family eventrefs and map them to members
+        if pid and fam_ids_raw:
+            # de-dupe, preserve order
+            seen, fam_ids = set(), []
+            for f in fam_ids_raw:
+                if f and f not in seen:
+                    fam_ids.append(f)
+                    seen.add(f)
+            if fam_ids:
+                person_family_index[pid] = fam_ids
+                for f in fam_ids:
+                    family_person_index.setdefault(f, []).append(pid)
+
+    # families: gather family eventrefs and map them to members (as before)
     family_events_by_person = {}
     for fam in root.findall(f"{NS}families/{NS}family"):
         evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref")]
@@ -164,8 +207,10 @@ def read_gramps(path):
         members = []
         fa = fam.find(f"{NS}father")
         mo = fam.find(f"{NS}mother")
-        if fa is not None and fa.get("hlink"): members.append(fa.get("hlink"))
-        if mo is not None and mo.get("hlink"): members.append(mo.get("hlink"))
+        if fa is not None and fa.get("hlink"):
+            members.append(fa.get("hlink"))
+        if mo is not None and mo.get("hlink"):
+            members.append(mo.get("hlink"))
         for cr in fam.findall(f"{NS}childref"):
             if cr.get("hlink"):
                 members.append(cr.get("hlink"))
@@ -174,11 +219,26 @@ def read_gramps(path):
             if evrefs:
                 family_events_by_person.setdefault(ph, set()).update(evrefs)
 
-    # attach to people
+    # attach family events to people (by HANDLE, unchanged)
     for ph in people.keys():
         people[ph]["family_event_refs"] = sorted(family_events_by_person.get(ph, []))
 
-    return people, events, places, children_by_parent, id_by_handle, handle_by_id
+    # Optional: sort family_person_index lists for stable output
+    for f in family_person_index:
+        family_person_index[f] = sorted(family_person_index[f])
+
+    return (
+        people,                # handle-keyed
+        events,                # handle-keyed
+        places,                # handle-keyed (now also carries "id": P####)
+        children_by_parent,    # handle-keyed
+        id_by_handle,          # person handle -> ID (I####)
+        handle_by_id,          # person ID (I####) -> handle
+        person_family_index,   # person ID (I####) -> [family_id,...]
+        family_person_index,   # family_id -> [person IDs]
+        place_id_by_handle,    # place handle -> place ID (P####)
+        place_handle_by_id,    # place ID (P####) -> place handle
+    )
 
 def choose_origin_for_person(person, events):
     # gather this person's own events + family events
@@ -283,6 +343,65 @@ def load_associations(csv_path):
             rows.append(r)
     return rows
 
+def parse_person_family_links(gramps_xml_path: Path):
+    """
+    Returns (person_family_index: dict[str, list[str]], family_person_index: dict[str, list[str]])
+    by reading <person> elements and their <attribute type="family_id" value="..."> children.
+    Accepts multiple attributes and/or semicolon-delimited values.
+    """
+    tree = ET.parse(gramps_xml_path)
+    root = tree.getroot()
+
+    # Gramps default namespace handling (strip if present)
+    # If your XML uses namespaces, ElementTree tags look like '{ns}person'.
+    # We'll match by localname to be safe.
+    def local(tag):
+        return tag.rsplit('}', 1)[-1] if '}' in tag else tag
+
+    person_family_index = {}
+    for person in root.iter():
+        if local(person.tag) != "person":
+            continue
+        pid = person.get("id")
+        if not pid:
+            continue
+
+        fam_ids = []
+        for attr in person.findall("./*"):
+            if local(attr.tag) != "attribute":
+                continue
+            if (attr.get("type") or "").lower() != "family_id":
+                continue
+            raw = (attr.get("value") or "").strip()
+            if not raw:
+                continue
+            # support "gorges" or "gorges;ploetz"
+            parts = [p.strip() for p in raw.split(";")]
+            fam_ids.extend([p for p in parts if p])
+
+        # de-dup while keeping order
+        seen, uniq = set(), []
+        for f in fam_ids:
+            if f not in seen:
+                uniq.append(f); seen.add(f)
+
+        if uniq:
+            person_family_index[pid] = uniq
+
+    # invert index
+    family_person_index = {}
+    for pid, fams in person_family_index.items():
+        for fid in fams:
+            family_person_index.setdefault(fid, []).append(pid)
+
+    # sort lists for a stable output (optional)
+    for pid in person_family_index:
+        person_family_index[pid] = sorted(person_family_index[pid])
+    for fid in family_person_index:
+        family_person_index[fid] = sorted(family_person_index[fid])
+
+    return person_family_index, family_person_index
+
 def main():
     ap = argparse.ArgumentParser(description="Export persons/origins/indexes from a Gramps .gramps file")
     ap.add_argument("--gramps", required=True, help="Path to .gramps XML file")
@@ -293,7 +412,7 @@ def main():
     args = ap.parse_args()
 
     outdir = Path(args.outdir)
-    people, events, places, children_by_parent, id_by_handle, handle_by_id = read_gramps(args.gramps)
+    people, events, places, children_by_parent, id_by_handle, handle_by_id, person_family_index, family_person_index, place_id_by_handle, place_handle_by_id = read_gramps(args.gramps)
 
     # Persons export
     persons_out = {}
@@ -398,6 +517,8 @@ def main():
     write_json(outdir / "origins.json", origins_out)
     write_json(outdir / "place_tree.json", place_tree)
     write_json(outdir / "origin_index.json", origin_index)
+    write_json(outdir / "person_family_index.json", person_family_index)
+    write_json(outdir / "family_person_index.json", family_person_index)
 
     if origin_parcel_index:
         write_json(outdir / "origin_parcel_index.json", origin_parcel_index)
