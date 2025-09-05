@@ -753,6 +753,21 @@
       <dateval val="1910-09-29"/>
       <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
     </event>
+    <event handle="_ffb129ce41367e7e4a5ccd0092e" change="1757102347" id="E0154">
+      <type>Birth</type>
+      <dateval val="1839-03-01"/>
+      <place hlink="_ffb12949155134df5e8fb16e1bb"/>
+    </event>
+    <event handle="_ffb12a483775faf9e009e644e99" change="1757103095" id="E0155">
+      <type>Birth</type>
+      <dateval val="1826-02-04"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_ffb12abd2291f9fd4eea7a59e1" change="1757102445" id="E0156">
+      <type>Marriage</type>
+      <dateval val="1861-09-17"/>
+      <place hlink="_ffab8ccf1fd123b6972ad9f89f"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -1425,6 +1440,24 @@
       <eventref hlink="_ffb11a317e9742f5662ab7ce7b2" role="Primary"/>
       <parentin hlink="_ffb1150047e1ae3d20ebc6623b4"/>
     </person>
+    <person handle="_ffb129929732b4c2abb86c0b38" change="1757102449" id="I0061">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Dorothea Marie</first>
+        <surname>Heuer</surname>
+      </name>
+      <eventref hlink="_ffb129ce41367e7e4a5ccd0092e" role="Primary"/>
+      <parentin hlink="_ffb1298bfed4155aafdcb0db430"/>
+    </person>
+    <person handle="_ffb12a21748880509839684584" change="1757102449" id="I0062">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Heinrich Johann</first>
+        <surname>Kohl</surname>
+      </name>
+      <eventref hlink="_ffb12a483775faf9e009e644e99" role="Primary"/>
+      <parentin hlink="_ffb1298bfed4155aafdcb0db430"/>
+    </person>
   </people>
   <families>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
@@ -1620,6 +1653,12 @@
       <eventref hlink="_ffb11857e5b8a2161873ced191" role="Family"/>
       <eventref hlink="_ffb1187d8f9ac0c59324a03eaa" role="Family"/>
       <eventref hlink="_ffb119925161ba83f4352b28512" role="Family"/>
+    </family>
+    <family handle="_ffb1298bfed4155aafdcb0db430" change="1757102449" id="F0031">
+      <rel type="Unknown"/>
+      <father hlink="_ffb12a21748880509839684584"/>
+      <mother hlink="_ffb129929732b4c2abb86c0b38"/>
+      <eventref hlink="_ffb12abd2291f9fd4eea7a59e1" role="Family"/>
     </family>
   </families>
   <places>
@@ -1878,6 +1917,19 @@
       <pname value="Klaushagen"/>
       <coord long="15.6131862822472" lat="53.54210930543899"/>
       <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffb128d4b7050cec87778650292" change="1757102245" id="P0058" type="Province">
+      <pname value="Hannover"/>
+      <placeref hlink="_ffa416e066b5fab2478c54439f7"/>
+    </placeobj>
+    <placeobj handle="_ffb128f64071c48c94c13506a35" change="1757102259" id="P0059" type="Kreis">
+      <pname value="Ülzen"/>
+      <placeref hlink="_ffb128d4b7050cec87778650292"/>
+    </placeobj>
+    <placeobj handle="_ffb12949155134df5e8fb16e1bb" change="1757102293" id="P0060" type="City">
+      <pname value="Ülzen"/>
+      <coord long="10.563327099596748" lat="52.96692727514821"/>
+      <placeref hlink="_ffb128f64071c48c94c13506a35"/>
     </placeobj>
   </places>
 </database>
