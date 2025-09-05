@@ -768,6 +768,65 @@
       <dateval val="1861-09-17"/>
       <place hlink="_ffab8ccf1fd123b6972ad9f89f"/>
     </event>
+    <event handle="_ffb1552468e555cb7fab138e57a" change="1757106892" id="E0157">
+      <type>Birth</type>
+      <dateval val="1821-12-12"/>
+      <place hlink="_ffa427cddb05c7386861b6c572c"/>
+    </event>
+    <event handle="_ffb1555bb39520ff13588d303eb" change="1757106914" id="E0158">
+      <type>Death</type>
+      <dateval val="1903-03-12"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffb156a8803194632047b0c22f4" change="1757107051" id="E0159">
+      <type>Birth</type>
+      <dateval val="1822-01-27"/>
+      <place hlink="_ffb156a51061f9bb00c99a7b229"/>
+    </event>
+    <event handle="_ffb1570ab485de5978f587eaf92" change="1757107091" id="E0160">
+      <type>Death</type>
+      <dateval val="1902-01-24"/>
+      <place hlink="_ffad3c86f5a638867a21894383d"/>
+    </event>
+    <event handle="_ffb1575f378654a22526b6c0639" change="1757107125" id="E0161">
+      <type>Marriage</type>
+      <dateval val="1849-11-02"/>
+      <place hlink="_ffb1198e0c12629bf6cf5d852bf"/>
+    </event>
+    <event handle="_ffb157d74ae423468f60f2d42af" change="1757107175" id="E0162">
+      <type>Residence</type>
+      <dateval val="1858"/>
+      <place hlink="_ffa43a81752426f7e4730862312"/>
+    </event>
+    <event handle="_ffb15854d252e2440bcfd44aad7" change="1757107226" id="E0163">
+      <type>Emigration</type>
+      <dateval val="1858-05-15"/>
+    </event>
+    <event handle="_ffb171a8559a73f38a2661f03d" change="1757109882" id="E0164">
+      <type>Birth</type>
+      <dateval val="1834-02-09"/>
+      <place hlink="_ffb171a52cc516eefe6fd807fd9"/>
+    </event>
+    <event handle="_ffb171eefae79df5f679ab47726" change="1757109911" id="E0165">
+      <type>Death</type>
+      <dateval val="1929-02-20"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffb172e14e4539fb876db0139af" change="1757110010" id="E0166">
+      <type>Birth</type>
+      <dateval val="1837-03-22"/>
+      <place hlink="_ffb172dd2b5572eec574572e0f8"/>
+    </event>
+    <event handle="_ffb17307c8930a446531951a241" change="1757110026" id="E0167">
+      <type>Death</type>
+      <dateval val="1901-01-03"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffb174425ff6cc321d6604b04b1" change="1757110155" id="E0168">
+      <type>Marriage</type>
+      <dateval val="1865-05-15"/>
+      <place hlink="_ffb1743f727120f56e0cfee7f64"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -917,7 +976,7 @@
       <eventref hlink="_ffa4edef3e53d86888a05a8c8f0" role="Primary"/>
       <parentin hlink="_ffa4ed52b802cb2ad0157711952"/>
     </person>
-    <person handle="_ffa4eeab5c55b097c79ed6dd52d" change="1756774333" id="I0012">
+    <person handle="_ffa4eeab5c55b097c79ed6dd52d" change="1757106921" id="I0012">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Wilhelmine</first>
@@ -1458,6 +1517,53 @@
       <eventref hlink="_ffb12a483775faf9e009e644e99" role="Primary"/>
       <parentin hlink="_ffb1298bfed4155aafdcb0db430"/>
     </person>
+    <person handle="_ffb154bc5c72bf63aebae4ebed7" change="1757107228" id="I0063">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Friedrich Ludwig Christian</first>
+        <call>Friedrich</call>
+        <surname>Gorges</surname>
+      </name>
+      <eventref hlink="_ffb1552468e555cb7fab138e57a" role="Primary"/>
+      <eventref hlink="_ffb1555bb39520ff13588d303eb" role="Primary"/>
+      <eventref hlink="_ffb157d74ae423468f60f2d42af" role="Primary"/>
+      <eventref hlink="_ffb15854d252e2440bcfd44aad7" role="Primary"/>
+      <childof hlink="_ffa4ed52b802cb2ad0157711952"/>
+      <parentin hlink="_ffb155706bd1894b46237846a82"/>
+    </person>
+    <person handle="_ffb1558426f4337a29faf68b0d8" change="1757107240" id="I0064">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Dorothea Auguste Sophia Eleonora</first>
+        <surname>Hanneman</surname>
+      </name>
+      <eventref hlink="_ffb156a8803194632047b0c22f4" role="Primary"/>
+      <eventref hlink="_ffb1570ab485de5978f587eaf92" role="Primary"/>
+      <eventref hlink="_ffb157d74ae423468f60f2d42af" role="Primary"/>
+      <eventref hlink="_ffb15854d252e2440bcfd44aad7" role="Primary"/>
+      <parentin hlink="_ffb155706bd1894b46237846a82"/>
+    </person>
+    <person handle="_ffb170ef63c7e0bbab3e427776d" change="1757109917" id="I0065">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Wilhelmine Friedricke</first>
+        <call>Friedricke</call>
+        <surname>Steinberg</surname>
+      </name>
+      <eventref hlink="_ffb171a8559a73f38a2661f03d" role="Primary"/>
+      <eventref hlink="_ffb171eefae79df5f679ab47726" role="Primary"/>
+      <parentin hlink="_ffb170e8a87b1130e25f879ac7"/>
+    </person>
+    <person handle="_ffb172130c6c37e1f91012a277" change="1757110156" id="I0066">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Wilhelm Friedrich</first>
+        <surname>Brehmer</surname>
+      </name>
+      <eventref hlink="_ffb172e14e4539fb876db0139af" role="Primary"/>
+      <eventref hlink="_ffb17307c8930a446531951a241" role="Primary"/>
+      <parentin hlink="_ffb170e8a87b1130e25f879ac7"/>
+    </person>
   </people>
   <families>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
@@ -1494,12 +1600,13 @@
       <childref hlink="_ffa425281755f97adf00edca0b1"/>
       <childref hlink="_ffa4ec68c9d57ac7b93c2b025e8"/>
     </family>
-    <family handle="_ffa4ed52b802cb2ad0157711952" change="1756774166" id="F0005">
+    <family handle="_ffa4ed52b802cb2ad0157711952" change="1757106921" id="F0005">
       <rel type="Married"/>
       <father hlink="_ffa4ec68c9d57ac7b93c2b025e8"/>
       <mother hlink="_ffa4ed67bc937a15be47aa2bd6c"/>
       <eventref hlink="_ffa4ee2468833f7354764f1b69d" role="Family"/>
       <childref hlink="_ffa4eeab5c55b097c79ed6dd52d"/>
+      <childref hlink="_ffb154bc5c72bf63aebae4ebed7"/>
     </family>
     <family handle="_ffa4f01320935e87bdec7479f1b" change="1756996953" id="F0006">
       <rel type="Married"/>
@@ -1659,6 +1766,18 @@
       <father hlink="_ffb12a21748880509839684584"/>
       <mother hlink="_ffb129929732b4c2abb86c0b38"/>
       <eventref hlink="_ffb12abd2291f9fd4eea7a59e1" role="Family"/>
+    </family>
+    <family handle="_ffb155706bd1894b46237846a82" change="1757107140" id="F0032">
+      <rel type="Married"/>
+      <father hlink="_ffb154bc5c72bf63aebae4ebed7"/>
+      <mother hlink="_ffb1558426f4337a29faf68b0d8"/>
+      <eventref hlink="_ffb1575f378654a22526b6c0639" role="Family"/>
+    </family>
+    <family handle="_ffb170e8a87b1130e25f879ac7" change="1757110166" id="F0033">
+      <rel type="Married"/>
+      <father hlink="_ffb172130c6c37e1f91012a277"/>
+      <mother hlink="_ffb170ef63c7e0bbab3e427776d"/>
+      <eventref hlink="_ffb174425ff6cc321d6604b04b1" role="Family"/>
     </family>
   </families>
   <places>
@@ -1930,6 +2049,26 @@
       <pname value="Ülzen"/>
       <coord long="10.563327099596748" lat="52.96692727514821"/>
       <placeref hlink="_ffb128f64071c48c94c13506a35"/>
+    </placeobj>
+    <placeobj handle="_ffb156a51061f9bb00c99a7b229" change="1757107049" id="P0061" type="Village">
+      <pname value="Gerdshagen"/>
+      <coord long="15.564794000011597" lat="53.56704569342468"/>
+      <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffb171a52cc516eefe6fd807fd9" change="1757109880" id="P0062" type="Village">
+      <pname value="Sassenhagen"/>
+      <coord long="15.176249876017437" lat="53.46296086257904"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffb172dd2b5572eec574572e0f8" change="1757110008" id="P0063" type="Unknown">
+      <pname value="Mulkenthin"/>
+      <coord long="15.02783033838771" lat="53.40486304244397"/>
+      <placeref hlink="_ffa4141f4ad1c7a88ee45af8ad4"/>
+    </placeobj>
+    <placeobj handle="_ffb1743f727120f56e0cfee7f64" change="1757110153" id="P0064" type="Village">
+      <pname value="Wittenfelde"/>
+      <coord long="15.122125007041516" lat="53.50547162449516"/>
+      <placeref hlink="_ffa4166062919b62f11f2993bf3"/>
     </placeobj>
   </places>
 </database>
