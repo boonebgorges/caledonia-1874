@@ -700,6 +700,59 @@
       <dateval val="1920-01-31"/>
       <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
     </event>
+    <event handle="_ffb1088d1bd258ef4b3698bbb49" change="1757098860" id="E0142">
+      <type>Birth</type>
+      <dateval val="1846-11-25"/>
+      <place hlink="_ffaba4346f43b24684de1d37e86"/>
+    </event>
+    <event handle="_ffb108adaed5340c7d9acccb02" change="1757098874" id="E0143">
+      <type>Death</type>
+      <dateval val="1894-01-14"/>
+    </event>
+    <event handle="_ffb10950b0878f01e8d9a3753db" change="1757098941" id="E0144">
+      <type>Birth</type>
+      <dateval val="1847-09-16"/>
+    </event>
+    <event handle="_ffb109e5f7850b10e8d34fb79f7" change="1757099002" id="E0145">
+      <type>Death</type>
+      <dateval val="1918-12-07"/>
+    </event>
+    <event handle="_ffb115b7b0e2c124708629c0b01" change="1757100241" id="E0146">
+      <type>Birth</type>
+      <dateval val="1825"/>
+    </event>
+    <event handle="_ffb1163605b4f52bb20c66b309f" change="1757100293" id="E0147">
+      <type>Death</type>
+      <dateval val="1903-10-30"/>
+      <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </event>
+    <event handle="_ffb1172be1860e497d3074b4605" change="1757100394" id="E0148">
+      <type>Residence</type>
+      <dateval val="1849"/>
+      <place hlink="_ffb117274816142a6392e06030c"/>
+    </event>
+    <event handle="_ffb11857e5b8a2161873ced191" change="1757100516" id="E0149">
+      <type>Marriage</type>
+      <dateval val="1849-10-30"/>
+    </event>
+    <event handle="_ffb1187d8f9ac0c59324a03eaa" change="1757100544" id="E0150">
+      <type>Emigration</type>
+      <dateval val="1869-04-15"/>
+    </event>
+    <event handle="_ffb119925161ba83f4352b28512" change="1757100645" id="E0151">
+      <type>Residence</type>
+      <dateval val="1869"/>
+      <place hlink="_ffb1198e0c12629bf6cf5d852bf"/>
+    </event>
+    <event handle="_ffb119ee15268b7094960836b4e" change="1757100683" id="E0152">
+      <type>Birth</type>
+      <dateval val="1822"/>
+    </event>
+    <event handle="_ffb11a317e9742f5662ab7ce7b2" change="1757100710" id="E0153">
+      <type>Death</type>
+      <dateval val="1910-09-29"/>
+      <place hlink="_ffa417b8b2a3569b225e8b7899f"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -1330,6 +1383,48 @@
       <eventref hlink="_ffb0bc315c66578518236d1b910" role="Primary"/>
       <parentin hlink="_ffb0bbb0bf812da88e760909a50"/>
     </person>
+    <person handle="_ffb1083c22231b9f01406b3773f" change="1757099271" id="I0057">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>August Wilhelm</first>
+        <call>Wilhelm</call>
+        <surname>Fehrmann</surname>
+      </name>
+      <eventref hlink="_ffb1088d1bd258ef4b3698bbb49" role="Primary"/>
+      <eventref hlink="_ffb108adaed5340c7d9acccb02" role="Primary"/>
+      <parentin hlink="_ffb108363cdaeddc0e532bd1fc"/>
+    </person>
+    <person handle="_ffb108f8c05b8aad5430f4706" change="1757099271" id="I0058">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Auguste Charlotte</first>
+        <surname>Schoffelke</surname>
+      </name>
+      <eventref hlink="_ffb10950b0878f01e8d9a3753db" role="Primary"/>
+      <eventref hlink="_ffb109e5f7850b10e8d34fb79f7" role="Primary"/>
+      <parentin hlink="_ffb108363cdaeddc0e532bd1fc"/>
+    </person>
+    <person handle="_ffb1150c5803647c02ba78a9a0c" change="1757100714" id="I0059">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Carl</first>
+        <surname>Koeneman</surname>
+      </name>
+      <eventref hlink="_ffb115b7b0e2c124708629c0b01" role="Primary"/>
+      <eventref hlink="_ffb1163605b4f52bb20c66b309f" role="Primary"/>
+      <eventref hlink="_ffb1172be1860e497d3074b4605" role="Primary"/>
+      <parentin hlink="_ffb1150047e1ae3d20ebc6623b4"/>
+    </person>
+    <person handle="_ffb1199ae88c2380a9168b5f28" change="1757100714" id="I0060">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Henriette Wilhelmine Friedricke</first>
+        <surname>Boenke</surname>
+      </name>
+      <eventref hlink="_ffb119ee15268b7094960836b4e" role="Primary"/>
+      <eventref hlink="_ffb11a317e9742f5662ab7ce7b2" role="Primary"/>
+      <parentin hlink="_ffb1150047e1ae3d20ebc6623b4"/>
+    </person>
   </people>
   <families>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
@@ -1512,6 +1607,19 @@
       <rel type="Unknown"/>
       <father hlink="_ffb0b8d023824ba2d453eb43ef5"/>
       <mother hlink="_ffb0bbc3fc75f27f97728cb7f0f"/>
+    </family>
+    <family handle="_ffb108363cdaeddc0e532bd1fc" change="1757099271" id="F0029">
+      <rel type="Unknown"/>
+      <father hlink="_ffb1083c22231b9f01406b3773f"/>
+      <mother hlink="_ffb108f8c05b8aad5430f4706"/>
+    </family>
+    <family handle="_ffb1150047e1ae3d20ebc6623b4" change="1757100714" id="F0030">
+      <rel type="Unknown"/>
+      <father hlink="_ffb1150c5803647c02ba78a9a0c"/>
+      <mother hlink="_ffb1199ae88c2380a9168b5f28"/>
+      <eventref hlink="_ffb11857e5b8a2161873ced191" role="Family"/>
+      <eventref hlink="_ffb1187d8f9ac0c59324a03eaa" role="Family"/>
+      <eventref hlink="_ffb119925161ba83f4352b28512" role="Family"/>
     </family>
   </families>
   <places>
@@ -1759,6 +1867,16 @@
       <pname value="Maldewin"/>
       <pname value="Friederickenwalde"/>
       <coord long="15.334680011818714" lat="53.70854457946588"/>
+      <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffb117274816142a6392e06030c" change="1757100392" id="P0056" type="Village">
+      <pname value="Lessenthin"/>
+      <coord long="15.57616077883891" lat="53.58461179600354"/>
+      <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
+    </placeobj>
+    <placeobj handle="_ffb1198e0c12629bf6cf5d852bf" change="1757100643" id="P0057" type="Village">
+      <pname value="Klaushagen"/>
+      <coord long="15.6131862822472" lat="53.54210930543899"/>
       <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
     </placeobj>
   </places>
