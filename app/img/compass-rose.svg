@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Compass rose">
+  <g fill="none" stroke="#000" stroke-width="2" opacity=".25">
+    <!-- outer circle -->
+    <circle cx="100" cy="100" r="84"/>
+    <!-- cardinal spikes -->
+    <path d="M100 10 L106 94 L190 100 L106 106 L100 190 L94 106 L10 100 L94 94 Z"/>
+    <!-- inter-cardinal spikes (shorter) -->
+    <path d="M155 45 L112 100 L155 155 L100 112 L45 155 L88 100 L45 45 L100 88 Z" opacity=".35"/>
+    <!-- small inner circle -->
+    <circle cx="100" cy="100" r="6" opacity=".5"/>
+  </g>
+</svg>
