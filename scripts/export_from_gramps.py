@@ -220,8 +220,8 @@ def read_gramps(path):
                 family_events_by_person.setdefault(ph, set()).update(evrefs)
 
     # attach family events to people (by HANDLE, unchanged)
-    for ph in people.keys():
-        people[ph]["family_event_refs"] = sorted(family_events_by_person.get(ph, []))
+#    for ph in people.keys():
+#        people[ph]["family_event_refs"] = sorted(family_events_by_person.get(ph, []))
 
     # Optional: sort family_person_index lists for stable output
     for f in family_person_index:
@@ -244,7 +244,7 @@ def choose_origin_for_person(person, events):
     # gather this person's own events + family events
     ev_handles = []
     ev_handles.extend([h for h in person.get("event_refs", []) if h in events])
-    ev_handles.extend([h for h in person.get("family_event_refs", []) if h in events])
+#    ev_handles.extend([h for h in person.get("family_event_refs", []) if h in events])
 
     evs = [events[h] for h in ev_handles]
 
