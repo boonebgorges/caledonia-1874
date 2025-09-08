@@ -19,6 +19,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 NS = "{http://gramps-project.org/xml/1.7.2/}"
+US_ROOTS = { "P0006" }  
 
 def ymd(s):
     # returns (y,m,d) from "YYYY[-MM[-DD]]" or (None,None,None)
@@ -199,33 +200,64 @@ def read_gramps(path):
                 for f in fam_ids:
                     family_person_index.setdefault(f, []).append(pid)
 
-    # families: gather family eventrefs and map them to members (as before)
-    family_events_by_person = {}
-    for fam in root.findall(f"{NS}families/{NS}family"):
-        evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref")]
+    # families: gather family eventrefs and map them to members with type-specific rules
+    family_residence_by_person = {}   # person HANDLE -> set(event handles)
+    spouse_marriage_by_person = {}    # person HANDLE -> set(event handles)
 
+    for fam in root.findall(f"{NS}families/{NS}family"):
+        evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref") if er.get("hlink")]
+
+        # Identify members
+        father = fam.find(f"{NS}father")
+        mother = fam.find(f"{NS}mother")
+        fa_h = father.get("hlink") if (father is not None and father.get("hlink")) else None
+        mo_h = mother.get("hlink") if (mother is not None and mother.get("hlink")) else None
+
+        # Members: parents+children for Residence propagation
         members = []
-        fa = fam.find(f"{NS}father")
-        mo = fam.find(f"{NS}mother")
-        if fa is not None and fa.get("hlink"):
-            members.append(fa.get("hlink"))
-        if mo is not None and mo.get("hlink"):
-            members.append(mo.get("hlink"))
+        if fa_h: members.append(fa_h)
+        if mo_h: members.append(mo_h)
         for cr in fam.findall(f"{NS}childref"):
             if cr.get("hlink"):
                 members.append(cr.get("hlink"))
 
-        for ph in set(members):
-            if evrefs:
-                family_events_by_person.setdefault(ph, set()).update(evrefs)
+        # Classify each family event by type using the parsed `events` table
+        for eh in evrefs:
+            e = events.get(eh)
+            if not e:
+                continue
+            et = (e.get("type") or "").lower()
+            if et == "residence":
+                for ph in set(members):
+                    family_residence_by_person.setdefault(ph, set()).add(eh)
+            elif et == "marriage":
+                # Only spouses get family marriage events
+                for ph in {h for h in (fa_h, mo_h) if h}:
+                    spouse_marriage_by_person.setdefault(ph, set()).add(eh)
 
-    # attach family events to people (by HANDLE, unchanged)
-#    for ph in people.keys():
-#        people[ph]["family_event_refs"] = sorted(family_events_by_person.get(ph, []))
+    # Attach to people (by HANDLE)
+    for ph in people.keys():
+        people[ph]["family_residence_event_refs"] = sorted(family_residence_by_person.get(ph, []))
+        people[ph]["spouse_marriage_event_refs"] = sorted(spouse_marriage_by_person.get(ph, []))
+        # families: gather family eventrefs and map them to members (as before)
+        family_events_by_person = {}
+        for fam in root.findall(f"{NS}families/{NS}family"):
+            evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref")]
 
-    # Optional: sort family_person_index lists for stable output
-    for f in family_person_index:
-        family_person_index[f] = sorted(family_person_index[f])
+            members = []
+            fa = fam.find(f"{NS}father")
+            mo = fam.find(f"{NS}mother")
+            if fa is not None and fa.get("hlink"):
+                members.append(fa.get("hlink"))
+            if mo is not None and mo.get("hlink"):
+                members.append(mo.get("hlink"))
+            for cr in fam.findall(f"{NS}childref"):
+                if cr.get("hlink"):
+                    members.append(cr.get("hlink"))
+
+    for ph in set(members):
+      if evrefs:
+        family_events_by_person.setdefault(ph, set()).update(evrefs)
 
     return (
         people,                # handle-keyed
@@ -240,62 +272,116 @@ def read_gramps(path):
         place_handle_by_id,    # place ID (P####) -> place handle
     )
 
-def choose_origin_for_person(person, events):
-    # gather this person's own events + family events
-    ev_handles = []
-    ev_handles.extend([h for h in person.get("event_refs", []) if h in events])
-#    ev_handles.extend([h for h in person.get("family_event_refs", []) if h in events])
+def is_descendant_of(places: dict, place_handle: str, root_handles: set[str]) -> bool:
+    h = place_handle
+    seen = set()
+    while h:
+        if h in root_handles:
+            return True
+        if h in seen:
+            break
+        seen.add(h)
+        h = places.get(h, {}).get("parent")
+    return False
 
-    evs = [events[h] for h in ev_handles]
+def event_is_in_country(events: dict, places: dict, event_handle: str, country_root_handles: set[str]) -> bool:
+  """True if the event has a place and that place lies under any of the given country roots."""
 
-    # immigration date (latest, if multiple)
-    imigs = sorted([e["date"] for e in evs if e["type"].lower() == "immigration" and e["date"][0] is not None])
-    imig = imigs[-1] if imigs else (None,None,None)
+  ev = events.get(event_handle) or {}
+  ph = ev.get("place")
+  return bool(ph and is_descendant_of(places, ph, country_root_handles))
 
-    # candidates = ANY dated event with a place
-    candidates_all = [e for e in evs if e.get("place") and e.get("date") and e["date"][0] is not None]
+def choose_origin_for_person(person, events, places, us_roots: set[str]):
+    # Person's own events (for immigration + direct candidates)
+    own_eh = [h for h in person.get("event_refs", []) if h in events]
+    own_evs = [events[h] for h in own_eh]
 
-    # ranking: evidence tag (direct > family > fallback > none),
-    # then whether it’s ≤ immigration (prefer True),
-    # then latest date wins
+    # Immigration date (from the PERSON, not family)
+    imigs = sorted([e["date"] for e in own_evs
+                    if (e["type"] or "").lower() == "immigration" and e["date"][0] is not None])
+    imig = imigs[-1] if imigs else (None, None, None)
+
+    # --- NEW: bring in family Residence (everyone) and spouse Marriage (spouses only)
+    fam_res_eh = [h for h in person.get("family_residence_event_refs", []) if h in events]
+    spouse_mar_eh = [h for h in person.get("spouse_marriage_event_refs", []) if h in events]
+
+    # Build candidate handles:
+    # - Residence: own + family
+    # - Marriage: own + spouse-only (no child-propagated marriages)
+    cand_handles = []
+
+    # Residence candidates
+    cand_handles.extend([
+        h for h in own_eh
+        if (events[h].get("type") or "").lower() == "residence"
+    ])
+    cand_handles.extend(fam_res_eh)
+
+    # Marriage candidates
+    cand_handles.extend([
+        h for h in own_eh
+        if (events[h].get("type") or "").lower() == "marriage"
+    ])
+    cand_handles.extend(spouse_mar_eh)
+
+    # Keep everything, but drop marriages that occur in the USA
+    def keep_for_origin(eh: str) -> bool:
+      t = (events[eh].get("type") or "").lower()
+      if t == "marriage" and event_is_in_country(events, places, eh, us_roots):
+        return False  # exclude U.S. marriages only
+      return True
+
+    cand_handles = [h for h in cand_handles if keep_for_origin(h)]
+
+    # De-dupe while preserving order
+    seen = set()
+    cand_handles = [h for h in cand_handles if not (h in seen or seen.add(h))]
+
+    # Materialize candidate events with required place+date
+    candidates_all = []
+    for h in cand_handles:
+        e = events[h]
+        if e.get("place") and e.get("date") and e["date"][0] is not None:
+            candidates_all.append(e)
+
+    # Rank: tags → <= immigration → latest date
     candidates = sorted(
         candidates_all,
         key=lambda e: (
             tag_rank(e.get("tags")),
             0 if tuple_leq(e["date"], imig) else 1,
-            (e["date"][0] or 0, e["date"][1] or 0, e["date"][2] or 0)
-        )
+            (e["date"][0] or 0, e["date"][1] or 0, e["date"][2] or 0),
+        ),
     )
 
-    origin_place = None
-    origin_method = None
-    origin_event_date = None
-
+    origin_place = origin_method = origin_event_date = None
     for e in candidates:
-        # If we know immigration, require e <= immigration. If we don't, accept the top-ranked event.
+        # If we know immigration, require e <= immigration. Else accept top-ranked.
         if imig[0] is None or tuple_leq(e["date"], imig):
             origin_place = e["place"]
             origin_event_date = e["date"]
-            # keep the nice method labeling you had
-            origin_method = next((t for t in e.get("tags", []) if t.lower().startswith("evidence-")), e["type"].lower() or "event")
+            origin_method = next(
+                (t for t in (e.get("tags") or []) if t.lower().startswith("evidence-")),
+                (e.get("type") or "event").lower(),
+            )
             break
 
-    # fallback: birth (unchanged)
+    # Fallback: birth
     if origin_place is None:
-        births = [e for e in evs if e["type"].lower() == "birth" and e.get("place")]
+        births = [e for e in own_evs if (e["type"] or "").lower() == "birth" and e.get("place")]
         if births:
             b = births[0]
             origin_place = b["place"]
             origin_event_date = b["date"]
             origin_method = "birth"
 
-    is_immigrant = any(e["type"].lower() == "immigration" for e in evs)
+    is_immigrant = any((e["type"] or "").lower() == "immigration" for e in own_evs)
 
     return {
         "is_immigrant": bool(is_immigrant),
         "origin_place_handle": origin_place,
         "origin_method": origin_method,
-        "origin_event_date": "-".join(str(x) for x in origin_event_date if x is not None) if origin_event_date else None
+        "origin_event_date": "-".join(str(x) for x in origin_event_date if x is not None) if origin_event_date else None,
     }
 
 def build_place_tree(places, root_handles=None):
@@ -402,6 +488,16 @@ def parse_person_family_links(gramps_xml_path: Path):
 
     return person_family_index, family_person_index
 
+def to_place_handle(token: str) -> str | None:
+    """Accept 'P####' or a handle; return a handle (or None)."""
+    if not token:
+        return None
+    if token in places:                 # already a handle
+        return token
+    if token in place_handle_by_id:     # looks like P#### ID
+        return place_handle_by_id[token]
+    return None
+
 def main():
     ap = argparse.ArgumentParser(description="Export persons/origins/indexes from a Gramps .gramps file")
     ap.add_argument("--gramps", required=True, help="Path to .gramps XML file")
@@ -414,13 +510,32 @@ def main():
     outdir = Path(args.outdir)
     people, events, places, children_by_parent, id_by_handle, handle_by_id, person_family_index, family_person_index, place_id_by_handle, place_handle_by_id = read_gramps(args.gramps)
 
+    # build mapping once if you want ID support
+    place_handle_by_id = {}
+    for h, p in places.items():
+        pid = p.get("id") if "id" in p else None  # add 'id' when parsing places if not present yet
+        if pid:
+            place_handle_by_id[pid] = h
+    
+    def to_place_handle(token: str) -> str | None:
+        if not token:
+            return None
+        if token in places:                 # already a handle
+            return token
+        if token in place_handle_by_id:     # ID like P0006
+            return place_handle_by_id[token]
+        return None
+    
+    # Build a handles-only set ONCE
+    US_ROOTS_HANDLES = { h for tok in US_ROOTS for h in [to_place_handle(tok)] if h }
+
     # Persons export
     persons_out = {}
     origin_index = {}  # place_handle -> [person_handle,...]
     origin_place_set = set()
 
     for ph, prec in people.items():
-        choice = choose_origin_for_person(prec, events)
+        choice = choose_origin_for_person(prec, events, places, US_ROOTS_HANDLES)
         persons_out[ph] = {
             "display_name": prec["display_name"],
             "is_immigrant": choice["is_immigrant"],
