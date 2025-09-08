@@ -633,9 +633,10 @@
       <dateval val="1911-10-08"/>
       <place hlink="_ffab10cc2e57cba2dfd5910a4d9"/>
     </event>
-    <event handle="_ffb01a8d7964bf9097f1f47cd21" change="1757073905" id="E0128">
+    <event handle="_ffb01a8d7964bf9097f1f47cd21" change="1757345796" id="E0128">
       <type>Birth</type>
       <dateval val="1839-02-06"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
     </event>
     <event handle="_ffb01b23064206baa73a0357f6c" change="1757073966" id="E0129">
       <type>Death</type>
@@ -758,10 +759,10 @@
       <dateval val="1839-03-01"/>
       <place hlink="_ffb12949155134df5e8fb16e1bb"/>
     </event>
-    <event handle="_ffb12a483775faf9e009e644e99" change="1757103095" id="E0155">
+    <event handle="_ffb12a483775faf9e009e644e99" change="1757346505" id="E0155">
       <type>Birth</type>
       <dateval val="1826-02-04"/>
-      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+      <place hlink="_ffba423fe5e41cfd44d9b57a64"/>
     </event>
     <event handle="_ffb12abd2291f9fd4eea7a59e1" change="1757102445" id="E0156">
       <type>Marriage</type>
@@ -919,6 +920,19 @@
       <dateval val="1903-07-09"/>
       <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
     </event>
+    <event handle="_ffba40233ae4d57656b7c4e1cbf" change="1757346281" id="E0188">
+      <type>Immigration</type>
+      <dateval val="1864"/>
+    </event>
+    <event handle="_ffba4423be319a548154a38d82b" change="1757346813" id="">
+      <type>Immigration</type>
+      <dateval val="1861"/>
+    </event>
+    <event handle="_ffba447dbeb3bd6335e7501d803" change="1757346738" id="E0189">
+      <type>Death</type>
+      <dateval val="1923-10-05"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -936,7 +950,7 @@
       <childof hlink="_ffa4250fe4242fa9accb11cb2b0"/>
       <parentin hlink="_ffa41dc910616f83d015b92c84f"/>
     </person>
-    <person handle="_ffa41b86370722118ecb73415df" change="1756926477" id="I0001">
+    <person handle="_ffa41b86370722118ecb73415df" change="1757346290" id="I0001">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Ernestine Amelia Wilhelmine</first>
@@ -946,6 +960,7 @@
       <eventref hlink="_ffa41c4483b74af05339ce15beb" role="Primary"/>
       <eventref hlink="_ffa41ace2001e6b017fd26ce4bc" role="Primary"/>
       <eventref hlink="_ffa4207ccfb66213343420abd60" role="Primary"/>
+      <eventref hlink="_ffba40233ae4d57656b7c4e1cbf" role="Primary"/>
       <childof hlink="_ffaa97fd63f4cc8b7facf50616c"/>
       <parentin hlink="_ffa41dc910616f83d015b92c84f"/>
     </person>
@@ -1594,13 +1609,15 @@
       <eventref hlink="_ffb11a317e9742f5662ab7ce7b2" role="Primary"/>
       <parentin hlink="_ffb1150047e1ae3d20ebc6623b4"/>
     </person>
-    <person handle="_ffb129929732b4c2abb86c0b38" change="1757102449" id="I0061">
+    <person handle="_ffb129929732b4c2abb86c0b38" change="1757346739" id="I0061">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Dorothea Marie</first>
         <surname>Heuer</surname>
       </name>
       <eventref hlink="_ffb129ce41367e7e4a5ccd0092e" role="Primary"/>
+      <eventref hlink="_ffba4423be319a548154a38d82b" role="Primary"/>
+      <eventref hlink="_ffba447dbeb3bd6335e7501d803" role="Primary"/>
       <parentin hlink="_ffb1298bfed4155aafdcb0db430"/>
     </person>
     <person handle="_ffb12a21748880509839684584" change="1757102449" id="I0062">
@@ -2322,6 +2339,9 @@
       <pname value="Gammelshausen"/>
       <coord long="9.651000886389484" lat="48.64114018551719"/>
       <placeref hlink="_ffb9a5bbd4c2534c45b38858c65"/>
+    </placeobj>
+    <placeobj handle="_ffba423fe5e41cfd44d9b57a64" change="1757346503" id="P0072" type="Country">
+      <pname value="Mecklenburg-Schwerin"/>
     </placeobj>
   </places>
 </database>
