@@ -3,7 +3,7 @@
 "http://gramps-project.org/xml/1.7.2/grampsxml.dtd">
 <database xmlns="http://gramps-project.org/xml/1.7.2/">
   <header>
-    <created date="2025-09-08" version="6.0.1"/>
+    <created date="2025-09-09" version="6.0.1"/>
     <researcher>
     </researcher>
   </header>
@@ -1091,6 +1091,31 @@
       <dateval val="1923-05-18"/>
       <place hlink="_ffbba950a65a61f2a2d5e930f6"/>
     </event>
+    <event handle="_ffbd7514ca57911854fcb5ce3d9" change="1757432363" id="E0222">
+      <type>Burial</type>
+      <dateval val="1852"/>
+      <place hlink="_ffbd7511e184f18b646efb2b5e7"/>
+    </event>
+    <event handle="_ffbdf2d37b033646f025bc0d16e" change="1757445549" id="E0223">
+      <type>Birth</type>
+      <dateval val="1828-05-11"/>
+      <place hlink="_ffbdf2840614aef2a33de370d3e"/>
+    </event>
+    <event handle="_ffbdf396bff7926d8fefacacf81" change="1757445629" id="E0224">
+      <type>Death</type>
+      <dateval val="1910-06-12"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_ffbdf3cbb8360a8920db2ddb1c9" change="1757445650" id="E0225">
+      <type>Birth</type>
+      <dateval val="1833-12-08"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_ffbdf3e91e46b3a6456ebb23eed" change="1757445662" id="E0226">
+      <type>Death</type>
+      <dateval val="1921-08-22"/>
+      <place hlink="_ffab10cc2e57cba2dfd5910a4d9"/>
+    </event>
   </events>
   <people>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1756768676" id="I0000">
@@ -1436,7 +1461,7 @@
       <childof hlink="_ffab789623d550e2081d394f37d"/>
       <parentin hlink="_ffab6cbee444398d36b49d3723f"/>
     </person>
-    <person handle="_ffab76eee2475743100569eff81" change="1757250109" id="I0029">
+    <person handle="_ffab76eee2475743100569eff81" change="1757432368" id="I0029">
       <gender>M</gender>
       <name type="Birth Name">
         <first>Friedrich</first>
@@ -1446,6 +1471,7 @@
       <eventref hlink="_ffab7730bc963bbc8fb4bbbfdc4" role="Primary"/>
       <eventref hlink="_ffab779a6ec578dac3a4c1f2137" role="Primary"/>
       <eventref hlink="_ffb6aaf5d2929a4e3ee1c8221a7" role="Primary"/>
+      <eventref hlink="_ffbd7514ca57911854fcb5ce3d9" role="Primary"/>
       <parentin hlink="_ffab781cc11dbfb116d143a034"/>
     </person>
     <person handle="_ffab789b10a19bf0a5e8852a306" change="1756949613" id="I0030">
@@ -2108,6 +2134,26 @@
       <childof hlink="_ffbbb4acf75ef2513f543c26f3"/>
       <parentin hlink="_ffbbb41f3592229928d926074d0"/>
     </person>
+    <person handle="_ffbdf1a431024ee470e79335c7d" change="1757445680" id="I0094">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Gottlieb</first>
+        <surname>Seefeld</surname>
+      </name>
+      <eventref hlink="_ffbdf2d37b033646f025bc0d16e" role="Primary"/>
+      <eventref hlink="_ffbdf396bff7926d8fefacacf81" role="Primary"/>
+      <parentin hlink="_ffbdf19f3f812539784ef3a50af"/>
+    </person>
+    <person handle="_ffbdf39f36e703998bf1890991f" change="1757445680" id="I0095">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Amelia</first>
+        <surname>Rusch</surname>
+      </name>
+      <eventref hlink="_ffbdf3cbb8360a8920db2ddb1c9" role="Primary"/>
+      <eventref hlink="_ffbdf3e91e46b3a6456ebb23eed" role="Primary"/>
+      <parentin hlink="_ffbdf19f3f812539784ef3a50af"/>
+    </person>
   </people>
   <families>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
@@ -2413,6 +2459,11 @@
       <eventref hlink="_ffbbb5bff557c5b31611ade3f30" role="Family"/>
       <childref hlink="_ffb01a5f4883023adf2bfae7818"/>
       <childref hlink="_ffbbb5d6ed117dd18bae3836f19"/>
+    </family>
+    <family handle="_ffbdf19f3f812539784ef3a50af" change="1757445680" id="F0048">
+      <rel type="Married"/>
+      <father hlink="_ffbdf1a431024ee470e79335c7d"/>
+      <mother hlink="_ffbdf39f36e703998bf1890991f"/>
     </family>
   </families>
   <places>
@@ -2763,6 +2814,16 @@
       <pname value="Ellington"/>
       <coord long="-88.54597356155878" lat="44.374925722540034"/>
       <placeref hlink="_ffbbad417211e2a91fd532783c"/>
+    </placeobj>
+    <placeobj handle="_ffbd7511e184f18b646efb2b5e7" change="1757432362" id="P0079" type="Village">
+      <pname value="Döringshagen"/>
+      <coord long="15.153823639487994" lat="53.76665988565773"/>
+      <placeref hlink="_ffa4166062919b62f11f2993bf3"/>
+    </placeobj>
+    <placeobj handle="_ffbdf2840614aef2a33de370d3e" change="1757445516" id="P0080" type="Village">
+      <pname value="Heinrichsfelde"/>
+      <coord long="15.621488820106785" lat="53.6396482639705"/>
+      <placeref hlink="_ffa4bc2c9f77b0a1c2fe1e4b090"/>
     </placeobj>
   </places>
 </database>
