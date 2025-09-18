@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>html,body,#map{height:100%;margin:0}</style>
   <script type="module" src="js/main-dual.js"></script>
+  <script type="module" src="js/panels.js"></script>
 </head>
 <body>
 
@@ -19,6 +20,27 @@
 </div>
 
 <div id="app"></div>
+
+<section id="detail-ui" class="ui-grid" aria-label="Details and Browser">
+  <div class="browser" id="browser">
+    <div class="tabs" role="tablist" aria-label="Browse">
+      <button role="tab" class="tab is-active" data-tab="families" aria-selected="true">Families</button>
+      <button role="tab" class="tab" data-tab="origins" aria-selected="false">Origins</button>
+      <button role="tab" class="tab" data-tab="parcels" aria-selected="false">Parcels</button>
+    </div>
+
+    <div class="filter-row">
+      <input id="browser-filter" type="search" placeholder="Filter…" aria-label="Filter list">
+      <span id="browser-count" class="count" aria-live="polite"></span>
+    </div>
+
+    <div id="browser-list" class="list" role="listbox" aria-label="Items"></div>
+  </div>
+
+  <div class="info" id="info-panel" aria-live="polite">
+    <div class="placeholder">Select a family, origin, or parcel.</div>
+  </div>
+</section>
 
 </body>
 </html>

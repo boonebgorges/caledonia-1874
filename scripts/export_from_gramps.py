@@ -634,6 +634,10 @@ def main():
     write_json(outdir / "origin_index.json", origin_index)
     write_json(outdir / "person_family_index.json", person_family_index)
     write_json(outdir / "family_person_index.json", family_person_index)
+    write_json(outdir / "id_by_handle.json", id_by_handle)
+    write_json(outdir / "handle_by_id.json", handle_by_id)
+    write_json(outdir / "place_id_by_handle.json", place_id_by_handle)
+    write_json(outdir / "place_handle_by_id.json", place_handle_by_id)
 
     if origin_parcel_index:
         write_json(outdir / "origin_parcel_index.json", origin_parcel_index)

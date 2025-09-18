@@ -1,6 +1,5 @@
 import { loadAllData, Data } from './data.js';
-import { buildParcelsLayer } from './layers-parcels.js';
-import { buildOriginsLayer } from './layers-origins.js';
+import { buildParcelsLayer, buildOriginsLayer } from './layers.js';
 import { Store } from './store.js';
 
 (function mountContainers() {
@@ -12,6 +11,26 @@ import { Store } from './store.js';
       <div id="controls" class="controls">
         <button id="clearSel" type="button" title="Clear selection">Clear selection</button>
       </div>
+
+			<div class="info-head">
+				<div class="info-title" id="info-title">Details</div>
+				<div class="info-controls">
+					<label class="toggle">
+						<input type="checkbox" id="toggle-follow"> Follow map clicks
+					</label>
+					<!-- optional -->
+					<label class="toggle">
+						<input type="checkbox" id="toggle-autotab"> Auto-switch tabs
+					</label>
+				</div>
+			</div>
+
+			<div id="preview-strip" class="preview-strip" hidden>
+				<span id="preview-text"></span>
+				<button id="preview-open" class="linklike">Open details</button>
+				<button id="preview-dismiss" class="linklike" aria-label="Dismiss">×</button>
+			</div>
+
       <div id="maps" class="maps">
         <div class="panel">
           <div class="panel-head">Caledonia Parcels</div>

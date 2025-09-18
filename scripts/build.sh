@@ -18,7 +18,10 @@ python3 "$ROOT/scripts/export_from_gramps.py" \
 # 3) Build families aggregate + crosswalk
 
 # deps for the families builder (PyYAML only)
-python3 scripts/build_families.py
+python3 scripts/build_families.py --datadir web/data --families-dir data/families
+
+# 3b) Build derived crosswalks (families ↔ origins ↔ parcels)
+python3 "$ROOT/scripts/build_indexes.py" --datadir "$OUTDIR/data"
 
 # 4) Export parcels for the web
 SRC_GPKG="$ROOT/data/qgis/parcels-1874.gpkg"
