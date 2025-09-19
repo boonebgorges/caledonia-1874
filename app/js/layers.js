@@ -15,6 +15,11 @@ function isCommitGesture(ev) {
   return !!(oe?.shiftKey || oe?.metaKey || oe?.ctrlKey);
 }
 
+// Keep references to built layer APIs so we can pan/zoom from panel events
+// (set below when buildOriginsLayer/buildParcelsLayer are called)
+let ORIGINS_API = null;
+let PARCELS_API = null;
+
 function emit(origin, detail) {
   window.dispatchEvent(new CustomEvent(origin, { detail }));
 }
@@ -156,7 +161,7 @@ export function buildOriginsLayer(map) {
     });
   });
 
-  return {
+  const api = {
     group,
     registry,
     fit(handles) {
@@ -169,6 +174,9 @@ export function buildOriginsLayer(map) {
     },
     destroy() { unsub(); map.removeLayer(group); }
   };
+
+  ORIGINS_API = api;
+  return api;
 }
 
 // -----------------------------------------------------------------------------
@@ -254,11 +262,10 @@ export function buildParcelsLayer(map) {
     byKey.forEach((lyr, key) => {
       const isOn = !!activeParcels && activeParcels.has(key);
       lyr.setStyle(isOn ? activeStyle : baseStyle);
-      if (isOn) lyr.openPopup();
     });
   });
 
-  return {
+	const api = {
     layer,
     byKey,
     fit(keys) {
@@ -272,4 +279,39 @@ export function buildParcelsLayer(map) {
     },
     destroy() { unsub(); map.removeLayer(layer); }
   };
+
+	PARCELS_API = api;
+	return api;
 }
+
+// -----------------------------------------------------------------------------
+// Panel → Map bridge (react to panel’s CustomEvents)
+// -----------------------------------------------------------------------------
+
+// Highlight sets (drives the existing Store subscriptions in both layers)
+window.addEventListener('ui:highlight', (e) => {
+  const { origins = [], parcels = [] } = e.detail || {};
+  Store.setActiveOrigins(origins);
+  Store.setActiveParcels(parcels);
+});
+
+// Focus/fit each map based on the panel selection type
+window.addEventListener('ui:focus', (e) => {
+  const d = e.detail || {};
+  let origins = [];
+  let parcels = [];
+
+  if (d.type === 'family') {
+    origins = (Data.familyOriginIndex || {})[d.id] || [];
+    parcels = (Data.familyParcelIndex || {})[d.id] || [];
+  } else if (d.type === 'origin') {
+    origins = [d.id];
+    parcels = ((Data.originParcelIndex || {})[d.id]) || [];
+  } else if (d.type === 'parcel') {
+    parcels = [d.id];
+    origins = safeGetOriginsForParcel(d.id);
+  }
+
+  if (ORIGINS_API && origins.length) ORIGINS_API.fit(origins, { maxZoom: 11 });
+  if (PARCELS_API && parcels.length) PARCELS_API.fit(parcels, { maxZoom: 15 });
+});
