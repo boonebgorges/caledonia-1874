@@ -1,4 +1,5 @@
 const DATA_BASE = 'data/';
+import { Data } from './data.js';
 
 // --- utilities ---------------------------------------------------------------
 
@@ -42,15 +43,6 @@ const Store = (() => {
 })();
 
 // --- data load ----------------------------------------------------------------
-
-const Data = {
-  families: {},                 // families.json
-  origins: {},                  // origins.json (handle -> {name,...})
-  familyOriginIndex: {},        // family -> [origin handles]
-  originFamilyIndex: {},        // origin handle -> [families]
-  familyParcelIndex: {},        // family -> [parcel keys]
-  parcelFamilyIndex: {},        // parcel key -> [families]
-};
 
 async function loadAll() {
   const [

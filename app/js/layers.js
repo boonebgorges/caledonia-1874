@@ -4,7 +4,7 @@
 
 import { Store } from './store.js';
 import { Data, placeLineage, getOriginsForParcel, ownersWithOriginsForKey } from './data.js';
-import { isDescendantOfUSA } from './util.js';
+import { constants, isDescendantOfUSA } from './util.js';
 
 // -----------------------------------------------------------------------------
 // Shared helpers
@@ -51,31 +51,46 @@ export function buildOriginsLayer(map) {
 
   const hasCoords = (p) => Number.isFinite(p?.lat) && Number.isFinite(p?.lon);
 
-  // Popup HTML with a commit button
-  function originPopupHtml(handle) {
-    const p = (Data.origins || {})[handle];
-    if (!p) return '<i>Unknown place</i>';
+	// Popup HTML with a commit button
+	function originPopupHtml(handle) {
+		const p = (Data.origins || {})[handle];
+		if (!p) return '<i>Unknown place</i>';
 
-    const lineage = typeof placeLineage === 'function'
-      ? placeLineage(handle, { stopTypes: ['Country'] })
-      : null;
+		const lineage = typeof placeLineage === 'function'
+			? placeLineage(handle, { stopTypes: ['Country'] })
+			: null;
 
-    const linkedParcels = ((Data.originParcelIndex || {})[handle] || [])
-      .map(k => `<li data-parcel="${k}">${k}</li>`).join('');
+		// Prefer direct index; fall back to deriving from origin→parcel→families
+		const familiesForOrigin = (() => {
+			const direct = (Data.originFamilyIndex || {})[handle];
+			if (Array.isArray(direct) && direct.length) return Array.from(new Set(direct));
+			const parcels = (Data.originParcelIndex || {})[handle] || [];
+			const out = new Set();
+			parcels.forEach(pk => ((Data.parcelFamilyIndex || {})[pk] || []).forEach(fid => out.add(fid)));
+			return Array.from(out);
+		})();
 
-    return `
-      <div class="popup">
-        <div class="bubble-title"><b>${p.name || handle}</b></div>
-        ${lineage?.text ? `<div class="subtle"><small>${lineage.text}</small></div>` : ''}
-        ${linkedParcels
-          ? `<div class="mt-2"><div><small>Parcels</small></div><ul class="linked-parcels">${linkedParcels}</ul></div>`
-          : ''}
-        <div class="actions mt-2">
-          <button class="open-details" data-origin="${handle}">Open details</button>
-        </div>
-      </div>
-    `;
-  }
+		const linkedFamilies = familiesForOrigin
+			.map(fid => {
+				const fam = (Data.families || {})[fid];
+				const label = fam?.label || fam?.name || fid;
+				return `<li data-family="${fid}">${label}</li>`;
+			})
+			.join('');
+
+		return `
+			<div class="popup">
+				<div class="bubble-title"><b>${p.name || handle}</b></div>
+				${lineage?.text ? `<div class="subtle"><small>${lineage.text}</small></div>` : ''}
+				${linkedFamilies
+					? `<div class="mt-2"><div><small>Families</small></div><ul class="linked-families">${linkedFamilies}</ul></div>`
+					: ''}
+				<div class="actions mt-2">
+					<button class="open-details" data-origin="${handle}">Open details</button>
+				</div>
+			</div>
+		`;
+	}
 
   // Map-side highlight only (no panel selection)
   function highlightOrigin(handle) {
@@ -312,6 +327,6 @@ window.addEventListener('ui:focus', (e) => {
     origins = safeGetOriginsForParcel(d.id);
   }
 
-  if (ORIGINS_API && origins.length) ORIGINS_API.fit(origins, { maxZoom: 11 });
-  if (PARCELS_API && parcels.length) PARCELS_API.fit(parcels, { maxZoom: 15 });
+  if (ORIGINS_API && origins.length) ORIGINS_API.fit(origins, { maxZoom: constants().maxZOrigins });
+  if (PARCELS_API && parcels.length) PARCELS_API.fit(parcels, { maxZoom: constants().maxZParcels });
 });

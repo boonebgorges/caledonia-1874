@@ -1,7 +1,7 @@
 import { loadAllData, Data } from './data.js';
 import { buildParcelsLayer, buildOriginsLayer } from './layers.js';
 import { Store } from './store.js';
-import { isDescendantOfUSA } from './util.js';
+import { constants, isDescendantOfUSA } from './util.js';
 
 (function mountContainers() {
   const root = document.getElementById('app') || document.body;
@@ -90,9 +90,9 @@ import { isDescendantOfUSA } from './util.js';
   }
 
   // --- Selection-based recentering (no continuous sync) ---
-  const PADDING = [20, 20];
-  const MAX_Z_ORIGINS = 10; // don’t over-zoom pins
-  const MAX_Z_PARCELS  = 14;
+  const PADDING = constants().padding;
+  const MAX_Z_ORIGINS = constants().maxZOrigins;
+  const MAX_Z_PARCELS = constants().maxZParcels;
 
   Store.subscribe(({ activeParcels, activeOrigins }) => {
     // If origins are active, recenter Origins map to those markers

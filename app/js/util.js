@@ -16,3 +16,10 @@ export function isDescendantOfUSA(handle) {
 	}
 	return false;
 }
+export function constants() {
+	return {
+		padding: [20, 20],
+		maxZOrigins: 10,
+		maxZParcels: 14,
+	};
+}
