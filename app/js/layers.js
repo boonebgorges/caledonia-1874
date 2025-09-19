@@ -123,9 +123,21 @@ export function buildOriginsLayer(map) {
     });
   }
 
+	function isDescendantOfUSA(handle) {
+		let current = Data.origins[handle];
+		while (current && current.parent) {
+			const parentObj = Data.origins[current.parent];
+			if (parentObj.name === 'USA') return true;
+			current = Data.origins[current.parent];
+		}
+		return false;
+	}
+
   // Create markers
   const markers = Object.entries(Data.origins || {})
-    .filter(([, p]) => hasCoords(p))
+    .filter(([handle, p]) => {
+			return hasCoords(p) && !isDescendantOfUSA(handle)
+		})
     .map(([handle, p]) => {
       const m = L.marker([p.lat, p.lon], {
         icon: L.divIcon({
