@@ -1,6 +1,7 @@
 import { loadAllData, Data } from './data.js';
 import { buildParcelsLayer, buildOriginsLayer } from './layers.js';
 import { Store } from './store.js';
+import { isDescendantOfUSA } from './util.js';
 
 (function mountContainers() {
   const root = document.getElementById('app') || document.body;
@@ -75,13 +76,15 @@ import { Store } from './store.js';
   try { initBoundsC = parcels.layer.getBounds(); mapC.fitBounds(initBoundsC, { padding: [16,16] }); } catch(e) {}
 
   // --- Initial extent for Origins: compute from origin lat/lon ---
-  const pts = Object.values(Data.origins || {})
-    .filter(p => Number.isFinite(p?.lat) && Number.isFinite(p?.lon))
-    .map(p => L.latLng(p.lat, p.lon));
+	const pts = Object.entries( Data.origins || {} )
+		.filter(([handle, p]) => !isDescendantOfUSA(handle))
+    .filter(([handle, p]) => Number.isFinite(p?.lat) && Number.isFinite(p?.lon))
+    .map(([handle, p]) => L.latLng(p.lat, p.lon));
   let initBoundsO = null;
   if (pts.length) {
     initBoundsO = L.latLngBounds(pts);
-    mapO.fitBounds(initBoundsO, { padding: [16,16], maxZoom: 8 }); // start fairly zoomed out
+		mapO.fitBounds(initBoundsO, { padding: [16,16] });
+		mapO.setZoom(mapO.getZoom() - 1); // back off one level
   } else {
     mapO.setView([44.2934, -88.8006], 5); // fallback
   }

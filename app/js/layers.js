@@ -4,6 +4,7 @@
 
 import { Store } from './store.js';
 import { Data, placeLineage, getOriginsForParcel, ownersWithOriginsForKey } from './data.js';
+import { isDescendantOfUSA } from './util.js';
 
 // -----------------------------------------------------------------------------
 // Shared helpers
@@ -122,16 +123,6 @@ export function buildOriginsLayer(map) {
       });
     });
   }
-
-	function isDescendantOfUSA(handle) {
-		let current = Data.origins[handle];
-		while (current && current.parent) {
-			const parentObj = Data.origins[current.parent];
-			if (parentObj.name === 'USA') return true;
-			current = Data.origins[current.parent];
-		}
-		return false;
-	}
 
   // Create markers
   const markers = Object.entries(Data.origins || {})
