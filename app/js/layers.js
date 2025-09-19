@@ -10,6 +10,33 @@ import { constants, isDescendantOfUSA } from './util.js';
 // Shared helpers
 // -----------------------------------------------------------------------------
 
+function getTileLayerMaxZoom(map) {
+  let z = Infinity;
+  Object.values(map._layers || {}).forEach(l => {
+    // L.TileLayer (including retina variants)
+    if (l && typeof l.getTileSize === 'function') {
+      if (Number.isFinite(l.options?.maxZoom)) {
+        z = Math.min(z, l.options.maxZoom);
+      }
+    }
+  });
+  return Number.isFinite(z) ? z : undefined;
+}
+
+function clampZoom(map, requestedZoom, optMaxZoom) {
+  const caps = [
+    requestedZoom,
+    optMaxZoom,
+    map?.options?.maxZoom,
+    getTileLayerMaxZoom(map),
+  ].filter(z => Number.isFinite(z));
+  return Math.min(...caps);
+}
+
+// flip to true temporarily if you want console traces
+const DEBUG_FIT = false;
+function dbg(...args) { if (DEBUG_FIT) console.debug('[fit]', ...args); }
+
 function isCommitGesture(ev) {
   const oe = ev?.originalEvent;
   return !!(oe?.shiftKey || oe?.metaKey || oe?.ctrlKey);
@@ -129,16 +156,23 @@ export function buildOriginsLayer(map) {
         }, { once: true });
       }
 
-      // Clicks on linked parcels list (preview + optional commit)
-      root.querySelectorAll('ul.linked-parcels li[data-parcel]').forEach(li => {
+			// Clicks on linked families list (preview + optional commit)
+      root.querySelectorAll('ul.linked-families li[data-family]').forEach(li => {
         li.addEventListener('click', (ev2) => {
           ev2.stopPropagation();
-          const key = li.getAttribute('data-parcel');
+          const fid = li.getAttribute('data-family');
+          const origins = (Data.familyOriginIndex || {})[fid] || [];
+          const parcels = (Data.familyParcelIndex || {})[fid]
+            || Array.from(new Set(
+                 origins.flatMap(h => (Data.originParcelIndex || {})[h] || [])
+               ));
+
           // Cross-highlight immediately
-          Store.setActiveParcels([key]);
-          Store.setActiveOrigins(safeGetOriginsForParcel(key));
-          // Preview in panel; user can commit from panel strip
-          emit('map:click:parcel', { key, commit: false });
+          Store.setActiveOrigins(origins);
+          Store.setActiveParcels(parcels);
+
+          // Preview in panel; user can commit from the preview strip
+          emit('map:click:family', { id: fid, commit: false });
         }, { once: true });
       });
     });
@@ -176,19 +210,44 @@ export function buildOriginsLayer(map) {
     });
   });
 
-  const api = {
-    group,
-    registry,
-    fit(handles) {
-      const pts = (handles || []).map(h => {
-        const p = Data.origins[h];
-        return p && [p.lat, p.lon];
-      }).filter(Boolean);
-      if (!pts.length) return;
-      map.fitBounds(L.latLngBounds(pts), { padding: [20, 20] });
-    },
-    destroy() { unsub(); map.removeLayer(group); }
-  };
+	const api = {
+		group,
+		registry,
+
+		fit(handles, opts = {}) {
+			const padding = opts.padding || [20, 20];
+			const optMaxZoom = opts.maxZoom; // e.g. your maxZOrigins
+
+			const pts = (handles || [])
+				.map(h => {
+					const p = (Data.origins || {})[h];
+					return p ? L.latLng(p.lat, p.lon) : null;
+				})
+				.filter(Boolean);
+
+			if (!pts.length) return;
+
+			if (pts.length === 1) {
+				// Single-point case: compute a safe zoom and setView()
+				const desired = clampZoom(map, map.getMaxZoom?.() ?? 18, optMaxZoom);
+				dbg('single point', { desired, mapMax: map.options?.maxZoom, tileMax: getTileLayerMaxZoom(map), optMaxZoom });
+				map.setView(pts[0], desired);
+				return;
+			}
+
+			// Multi-point case: compute bounds, get target zoom, clamp, setView()
+			const b = L.latLngBounds(pts);
+			// getBoundsZoom returns the zoom that would fit the bounds
+			const requested = map.getBoundsZoom(b, false, padding);
+			const clamped = clampZoom(map, requested, optMaxZoom);
+			dbg('multi point', { requested, clamped, mapMax: map.options?.maxZoom, tileMax: getTileLayerMaxZoom(map), optMaxZoom });
+
+			// Use setView(center, clamped) instead of fitBounds to enforce our clamp
+			map.setView(b.getCenter(), clamped);
+		},
+
+		destroy() { unsub(); map.removeLayer(group); }
+	};
 
   ORIGINS_API = api;
   return api;
@@ -283,14 +342,30 @@ export function buildParcelsLayer(map) {
 	const api = {
     layer,
     byKey,
-    fit(keys) {
-      const bounds = L.latLngBounds([]);
+    // Fit parcels with zoom clamping; accepts opts = { maxZoom, padding }
+    fit(keys, opts = {}) {
+      const padding = opts.padding || [20, 20];
+      const optMaxZoom = opts.maxZoom; // e.g., 13
+
+      const b = L.latLngBounds([]);
       (keys || []).forEach(k => {
         const lyr = byKey.get(k);
         if (!lyr) return;
-        try { bounds.extend(lyr.getBounds()); } catch {}
+        try {
+          const lb = lyr.getBounds?.();
+          if (lb?.isValid()) b.extend(lb);
+        } catch {}
       });
-      if (bounds.isValid()) map.fitBounds(bounds, { padding: [20, 20] });
+      if (!b.isValid()) return;
+
+      // Slightly inflate tiny bounds so we don't over-zoom on sliver parcels
+      const padded = b.pad(0.02); // ~2% expansion; tweak if needed
+
+      const requested = map.getBoundsZoom(padded, false, padding);
+      const clamped = clampZoom(map, requested, optMaxZoom);
+      dbg({ requested, clamped, mapMax: map.options?.maxZoom, tileMax: getTileLayerMaxZoom(map), optMaxZoom });
+
+      map.setView(padded.getCenter(), clamped);
     },
     destroy() { unsub(); map.removeLayer(layer); }
   };
