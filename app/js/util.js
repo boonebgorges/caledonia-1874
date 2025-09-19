@@ -16,6 +16,9 @@ export function isDescendantOfUSA(handle) {
 	}
 	return false;
 }
+export function getPersonHandleById(id) {
+	return Data.personHandleById ? Data.personHandleById[id] || null : null;
+}
 export function constants() {
 	return {
 		padding: [20, 20],

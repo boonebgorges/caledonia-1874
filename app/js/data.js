@@ -2,6 +2,8 @@ import { urlFor } from './util.js';
 
 // Loaded-at-runtime data caches
 export const Data = {
+	familyPersonIndex: null, 
+	personHandleById: null,
   persons: null,
   parcelIndex: null,
   origins: null,
@@ -12,8 +14,16 @@ export const Data = {
 // Load all JSON assets needed across views
 export async function loadAllData() {
   const [
-    persons, parcelIndex, origins, originParcelIndex, parcelsGeoJSON
+    familyPersonIndex, 
+		personHandleById,
+		persons, 
+		parcelIndex, 
+		origins, 
+		originParcelIndex, 
+		parcelsGeoJSON
   ] = await Promise.all([
+		fetch(urlFor('data/family_person_index.json')).then(r => r.json()),
+		fetch(urlFor('data/handle_by_id.json')).then(r => r.json()),
     fetch(urlFor('data/persons.json')).then(r => r.json()),
     fetch(urlFor('data/parcel_index.json')).then(r => r.json()),
     fetch(urlFor('data/origins.json')).then(r => r.json()),
@@ -22,6 +32,8 @@ export async function loadAllData() {
     fetch(urlFor('data/parcels-1874.geojson')).then(r => r.json()),
   ]);
 
+	Data.familyPersonIndex = familyPersonIndex;
+	Data.personHandleById = personHandleById;
   Data.persons = persons;
   Data.parcelIndex = parcelIndex;
   Data.origins = origins;

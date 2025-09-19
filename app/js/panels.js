@@ -1,5 +1,6 @@
 const DATA_BASE = 'data/';
 import { Data } from './data.js';
+import { getPersonHandleById } from './util.js';
 
 // --- utilities ---------------------------------------------------------------
 
@@ -194,6 +195,23 @@ function renderInfo() {
           : h('span', {}, 'No parcels found.')
       )
     );
+
+		const familyPersonIds = (Data.familyPersonIndex[fam.id] || []).slice();
+		if ( familyPersonIds.length ) {
+			const ppl = familyPersonIds.map( pid => {
+				const ph = getPersonHandleById(pid);
+				const p = Data.persons?.[ph];
+				return p ? (p.display_name || ph) : ph;
+			}).filter(Boolean);
+			if ( ppl.length ) {
+				el.info.append(
+					h('h3', {}, 'Associated people'),
+					h('div', { class: 'tags' },
+						ppl.map( n => h('span', { class: 'tag' }, n) )
+					)
+				);
+			}
+		}
 
     // map highlight side-effect
     emitHighlight({
