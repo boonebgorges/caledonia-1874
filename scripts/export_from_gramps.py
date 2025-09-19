@@ -203,6 +203,8 @@ def read_gramps(path):
     # families: gather family eventrefs and map them to members with type-specific rules
     family_residence_by_person = {}   # person HANDLE -> set(event handles)
     spouse_marriage_by_person = {}    # person HANDLE -> set(event handles)
+    parents_by_child_handle = {}      # child HANDLE -> set(parent HANDLES)
+    children_by_parent_handle = {}    # parent HANDLE -> set(child HANDLES)
 
     for fam in root.findall(f"{NS}families/{NS}family"):
         evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref") if er.get("hlink")]
@@ -218,8 +220,16 @@ def read_gramps(path):
         if fa_h: members.append(fa_h)
         if mo_h: members.append(mo_h)
         for cr in fam.findall(f"{NS}childref"):
-            if cr.get("hlink"):
-                members.append(cr.get("hlink"))
+            ch = cr.get("hlink")
+            if ch:
+                members.append(ch)
+                # record parentage (both parents if present)
+                pset = parents_by_child_handle.setdefault(ch, set())
+                if fa_h: pset.add(fa_h)
+                if mo_h: pset.add(mo_h)
+                for par in (fa_h, mo_h):
+                    if par:
+                        children_by_parent_handle.setdefault(par, set()).add(ch)
 
         # Classify each family event by type using the parsed `events` table
         for eh in evrefs:
@@ -239,26 +249,25 @@ def read_gramps(path):
     for ph in people.keys():
         people[ph]["family_residence_event_refs"] = sorted(family_residence_by_person.get(ph, []))
         people[ph]["spouse_marriage_event_refs"] = sorted(spouse_marriage_by_person.get(ph, []))
-        # families: gather family eventrefs and map them to members (as before)
-        family_events_by_person = {}
-        for fam in root.findall(f"{NS}families/{NS}family"):
-            evrefs = [er.get("hlink") for er in fam.findall(f"{NS}eventref")]
 
-            members = []
-            fa = fam.find(f"{NS}father")
-            mo = fam.find(f"{NS}mother")
-            if fa is not None and fa.get("hlink"):
-                members.append(fa.get("hlink"))
-            if mo is not None and mo.get("hlink"):
-                members.append(mo.get("hlink"))
-            for cr in fam.findall(f"{NS}childref"):
-                if cr.get("hlink"):
-                    members.append(cr.get("hlink"))
-
-    for ph in set(members):
-      if evrefs:
-        family_events_by_person.setdefault(ph, set()).update(evrefs)
-
+    # Translate parent/child graph from HANDLES → IDs (I####)
+    parents_by_child_id = {}
+    children_by_parent_id = {}
+    for ch_h, par_hs in parents_by_child_handle.items():
+        ch_id = id_by_handle.get(ch_h)
+        if not ch_id:
+            continue
+        ids = sorted([id_by_handle[p] for p in par_hs if p in id_by_handle])
+        if ids:
+            parents_by_child_id[ch_id] = ids
+    for par_h, ch_hs in children_by_parent_handle.items():
+        par_id = id_by_handle.get(par_h)
+        if not par_id:
+            continue
+        ids = sorted([id_by_handle[c] for c in ch_hs if c in id_by_handle])
+        if ids:
+            children_by_parent_id[par_id] = ids
+ 
     return (
         people,                # handle-keyed
         events,                # handle-keyed
@@ -270,6 +279,8 @@ def read_gramps(path):
         family_person_index,   # family_id -> [person IDs]
         place_id_by_handle,    # place handle -> place ID (P####)
         place_handle_by_id,    # place ID (P####) -> place handle
+        parents_by_child_id,   # person ID -> [parent IDs]
+        children_by_parent_id, # person ID -> [child IDs]
     )
 
 def is_descendant_of(places: dict, place_handle: str, root_handles: set[str]) -> bool:
@@ -508,7 +519,11 @@ def main():
     args = ap.parse_args()
 
     outdir = Path(args.outdir)
-    people, events, places, children_by_parent, id_by_handle, handle_by_id, person_family_index, family_person_index, place_id_by_handle, place_handle_by_id = read_gramps(args.gramps)
+    (people, events, places, children_by_parent,
+     id_by_handle, handle_by_id,
+     person_family_index_explicit, family_person_index_explicit,
+     place_id_by_handle, place_handle_by_id,
+     parents_by_child_id, children_by_parent_id) = read_gramps(args.gramps)
 
     # build mapping once if you want ID support
     place_handle_by_id = {}
@@ -627,13 +642,51 @@ def main():
             for k in d:
                 d[k] = sorted(d[k])
 
+    # --- Inherit family_ids from parents downward ---
+    from collections import deque, defaultdict
+
+    # Start with explicit values (from Gramps attributes)
+    person_family_index_all = {pid: set(fams) for pid, fams in (person_family_index_explicit or {}).items()}
+    # Ensure all known person IDs exist in the dict
+    for pid in handle_by_id.keys():
+        person_family_index_all.setdefault(pid, set())
+
+    # Build children lookup
+    kids = defaultdict(list, {pid: ch for pid, ch in (children_by_parent_id or {}).items()})
+
+    # Seed queue with everyone who has any explicit family tags
+    q = deque([pid for pid, fams in person_family_index_all.items() if fams])
+    seen = set()
+    while q:
+        cur = q.popleft()
+        if cur in seen:
+            continue
+        seen.add(cur)
+        cur_fams = person_family_index_all.get(cur, set())
+        for ch in kids.get(cur, []):
+            before = len(person_family_index_all[ch])
+            person_family_index_all[ch] |= cur_fams
+            if len(person_family_index_all[ch]) > before:
+                q.append(ch)
+
+    # Normalize to sorted lists and drop empty entries
+    person_family_index = {pid: sorted(list(fams)) for pid, fams in person_family_index_all.items() if fams}
+
+    # Invert to family_person_index
+    family_person_index = {}
+    for pid, fams in person_family_index.items():
+        for f in fams:
+            family_person_index.setdefault(f, []).append(pid)
+    for f in list(family_person_index.keys()):
+        family_person_index[f] = sorted(family_person_index[f])
+
     # Write files
     write_json(outdir / "persons.json", persons_out)
     write_json(outdir / "origins.json", origins_out)
     write_json(outdir / "place_tree.json", place_tree)
     write_json(outdir / "origin_index.json", origin_index)
-    write_json(outdir / "person_family_index.json", person_family_index)
-    write_json(outdir / "family_person_index.json", family_person_index)
+    write_json(outdir / "person_family_index.json", person_family_index)   
+    write_json(outdir / "family_person_index.json", family_person_index)  
     write_json(outdir / "id_by_handle.json", id_by_handle)
     write_json(outdir / "handle_by_id.json", handle_by_id)
     write_json(outdir / "place_id_by_handle.json", place_id_by_handle)
