@@ -3,7 +3,7 @@
 "http://gramps-project.org/xml/1.7.2/grampsxml.dtd">
 <database xmlns="http://gramps-project.org/xml/1.7.2/">
   <header>
-    <created date="2025-10-14" version="6.0.1"/>
+    <created date="2025-10-24" version="6.0.1"/>
     <researcher>
     </researcher>
   </header>
@@ -68,6 +68,26 @@
       <type>Birth</type>
       <dateval val="1839-03-22"/>
       <place hlink="_1002ed9e79ce29114dcf24c2b060"/>
+    </event>
+    <event handle="_1004e9c8dc1e1a3add2fe5c0c832" change="1761328816" id="E0310">
+      <type>Birth</type>
+      <dateval val="1817"/>
+      <place hlink="_1004e9be78c62c5da4f57f671264"/>
+    </event>
+    <event handle="_1004e9d2a484a67b66a576c9d2" change="1761328880" id="E0311">
+      <type>Death</type>
+      <dateval val="1890-07-19"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_1004e9dac9d52de429879c153c1b" change="1761328934" id="E0312">
+      <type>Birth</type>
+      <dateval val="1827-02-21"/>
+      <place hlink="_1004e99af7ff2654b00fc5a50506"/>
+    </event>
+    <event handle="_1004e9ddabf06af3b45377fbfda0" change="1761328953" id="E0313">
+      <type>Death</type>
+      <dateval val="1873-01-09"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
     </event>
     <event handle="_ffa3bc98c485625ff93a1d82658" change="1756741930" id="E0000">
       <type>Birth</type>
@@ -1607,6 +1627,27 @@
       <eventref hlink="_1002ed9376b549903e93a6237182" role="Primary"/>
       <attribute type="family_id" value="ehlke"/>
       <parentin hlink="_1002ed8b8510254fb49c9e568ac2"/>
+    </person>
+    <person handle="_1004e9c2d322177d89d09ccd8cf1" change="1761328960" id="I0149">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Christian</first>
+        <surname>Riemenschneider</surname>
+      </name>
+      <eventref hlink="_1004e9c8dc1e1a3add2fe5c0c832" role="Primary"/>
+      <eventref hlink="_1004e9d2a484a67b66a576c9d2" role="Primary"/>
+      <parentin hlink="_1004e9ca9881158290b73dae4388"/>
+    </person>
+    <person handle="_1004e9d35d6c33cef7096723c9b2" change="1761328960" id="I0150">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Rosine Dorothee Auguste</first>
+        <call>Auguste</call>
+        <surname>Spengler</surname>
+      </name>
+      <eventref hlink="_1004e9dac9d52de429879c153c1b" role="Primary"/>
+      <eventref hlink="_1004e9ddabf06af3b45377fbfda0" role="Primary"/>
+      <parentin hlink="_1004e9ca9881158290b73dae4388"/>
     </person>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1757975113" id="I0000">
       <gender>M</gender>
@@ -3329,6 +3370,12 @@
       <father hlink="_1002ead638d65de734c9a1f5bc63"/>
       <mother hlink="_1002ed8d7c5f6ab3958d043d40b3"/>
     </family>
+    <family handle="_1004e9ca9881158290b73dae4388" change="1761328997" id="F0074">
+      <rel type="Married"/>
+      <father hlink="_1004e9c2d322177d89d09ccd8cf1"/>
+      <mother hlink="_1004e9d35d6c33cef7096723c9b2"/>
+      <attribute type="family_id" value="riemenschneider"/>
+    </family>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
       <rel type="Married"/>
       <father hlink="_ffa387d5ee82caa64db99a85a71"/>
@@ -3794,6 +3841,27 @@
       <pname value="Dünow"/>
       <coord long="14.948658521577828" lat="53.907486742679076"/>
       <placeref hlink="_ffaeb4cd460420e94568505c0b"/>
+    </placeobj>
+    <placeobj handle="_1004e995346064db33f74a089f43" change="1761328478" id="P0110" type="Kreis">
+      <pname value="Osterode"/>
+      <placeref hlink="_ffb128d4b7050cec87778650292"/>
+    </placeobj>
+    <placeobj handle="_1004e99af7ff2654b00fc5a50506" change="1761328516" id="P0111" type="Village">
+      <pname value="Calefeld"/>
+      <coord long="10.032822649198271" lat="51.79760981335586"/>
+      <placeref hlink="_1004e995346064db33f74a089f43"/>
+    </placeobj>
+    <placeobj handle="_1004e9b00381565e30d6d6db91db" change="1761328654" id="P0112" type="Country">
+      <pname value="Braunschweig"/>
+    </placeobj>
+    <placeobj handle="_1004e9b9f6de3b97e9c7fb32d4a3" change="1761328719" id="P0113" type="Kreis">
+      <pname value="Holzminden"/>
+      <placeref hlink="_1004e9b00381565e30d6d6db91db"/>
+    </placeobj>
+    <placeobj handle="_1004e9be78c62c5da4f57f671264" change="1761328748" id="P0114" type="Village">
+      <pname value="Eimen"/>
+      <coord long="9.7794968231798" lat="51.87657045718927"/>
+      <placeref hlink="_1004e9b9f6de3b97e9c7fb32d4a3"/>
     </placeobj>
     <placeobj handle="_ffa3bc8a3262a63372def9507fe" change="1756753285" id="P0000" type="Village">
       <pname value="Ludwigsthal"/>
