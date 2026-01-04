@@ -219,20 +219,12 @@ export function buildOriginsLayer(map) {
           opacity: 0.95
         })
         .on('click', (ev) => onOriginClick(handle, ev))
-        .on('mouseout', function(ev) {
-          // Prevent tooltip from closing on mouseout if it was opened via parcel selection
+        .on('tooltipclose', function(ev) {
+          // Prevent tooltip from closing if marker is active (opened via parcel selection)
           const el = this.getElement();
-          if (el && el.classList.contains('is-active')) {
-            ev.stopPropagation();
-            // Keep tooltip open by reopening it immediately
-            const tooltip = this.getTooltip();
-            if (tooltip && !this.isPopupOpen()) {
-              setTimeout(() => {
-                if (!this.isTooltipOpen()) {
-                  this.openTooltip();
-                }
-              }, 0);
-            }
+          if (el && el.classList.contains('is-active') && !this.isPopupOpen()) {
+            // Reopen immediately to prevent the close
+            setTimeout(() => this.openTooltip(), 0);
           }
         });
 
