@@ -231,12 +231,20 @@ export function buildOriginsLayer(map) {
 
   // Wire tooltip clicks to open popup
   function wireTooltipClicks() {
+    // Keep track of which tooltips have been wired to avoid duplicate listeners
+    const wiredTooltips = new WeakSet();
+    
     map.on('tooltipopen', (e) => {
       const tooltip = e.tooltip;
       const tooltipEl = tooltip.getElement();
       if (!tooltipEl || !tooltipEl.classList.contains('origin-minimal-label')) return;
       
+      // Skip if already wired
+      if (wiredTooltips.has(tooltipEl)) return;
+      wiredTooltips.add(tooltipEl);
+      
       // Find which marker this tooltip belongs to
+      // Store the handle in a data attribute for direct lookup
       registry.forEach((mk, handle) => {
         if (mk.getTooltip() === tooltip) {
           // Add click handler to tooltip to open the popup
