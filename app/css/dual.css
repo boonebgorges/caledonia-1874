@@ -55,6 +55,11 @@ html, body {
   opacity: 0.5;
 }
 
+/* Hover effect for dimmed markers - bring to full opacity */
+.origin-marker.has-active-selection:not(.is-active):hover .dot {
+  opacity: 1.0;
+}
+
 /* Enhanced highlight for active markers */
 .origin-marker.is-active .dot { 
   outline: 5px solid rgba(255, 107, 53, 0.85);
