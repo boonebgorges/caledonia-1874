@@ -193,10 +193,15 @@ export function buildOriginsLayer(map) {
 		})
     .map(([handle, p]) => {
       // Create tooltip content with full lineage for minimal display
-      const lineage = typeof placeLineage === 'function'
-        ? placeLineage(handle, { stopTypes: ['Country'] })
-        : null;
-      const tooltipText = lineage?.text || p.name || handle;
+      let tooltipText = p.name || handle;
+      try {
+        const lineage = typeof placeLineage === 'function'
+          ? placeLineage(handle, { stopTypes: ['Country'] })
+          : null;
+        if (lineage?.text) tooltipText = lineage.text;
+      } catch (err) {
+        console.warn(`Failed to get lineage for ${handle}:`, err);
+      }
       
       const m = L.marker([p.lat, p.lon], {
         icon: L.divIcon({
@@ -234,9 +239,12 @@ export function buildOriginsLayer(map) {
       
       // Show tooltip for active markers when there's a selection
       // But only if the marker doesn't already have its popup open
-      if (isActive && hasActiveSelection && !mk.isPopupOpen()) {
+      const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
+      const isTooltipOpen = mk.isTooltipOpen();
+      
+      if (shouldShowTooltip && !isTooltipOpen) {
         mk.openTooltip();
-      } else {
+      } else if (!shouldShowTooltip && isTooltipOpen) {
         mk.closeTooltip();
       }
     });
