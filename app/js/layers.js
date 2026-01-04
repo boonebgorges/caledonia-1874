@@ -218,15 +218,7 @@ export function buildOriginsLayer(map) {
           className: 'origin-minimal-label',
           opacity: 0.95
         })
-        .on('click', (ev) => onOriginClick(handle, ev))
-        .on('tooltipclose', function(ev) {
-          // Prevent tooltip from closing if marker is active (opened via parcel selection)
-          const el = this.getElement();
-          if (el && el.classList.contains('is-active') && !this.isPopupOpen()) {
-            // Reopen immediately to prevent the close
-            setTimeout(() => this.openTooltip(), 0);
-          }
-        });
+        .on('click', (ev) => onOriginClick(handle, ev));
 
       registry.set(handle, m);
       return m;
@@ -248,20 +240,38 @@ export function buildOriginsLayer(map) {
       // Show tooltip for active markers when there's a selection
       // But only if the marker doesn't already have its popup open
       const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
-      
-      // Get the tooltip and update its permanent state
-      const tooltip = mk.getTooltip();
-      if (tooltip) {
-        // Make tooltip permanent when shown via selection to prevent auto-close
-        tooltip.options.permanent = shouldShowTooltip;
-      }
-      
       const isTooltipOpen = mk.isTooltipOpen();
       
       if (shouldShowTooltip && !isTooltipOpen) {
+        // Get current tooltip and unbind/rebind with permanent option
+        const tooltip = mk.getTooltip();
+        if (tooltip) {
+          const tooltipContent = tooltip.getContent();
+          mk.unbindTooltip();
+          mk.bindTooltip(tooltipContent, {
+            permanent: true,  // Make it permanent when opened via selection
+            direction: 'top',
+            offset: [0, -8],
+            className: 'origin-minimal-label',
+            opacity: 0.95
+          });
+        }
         mk.openTooltip();
       } else if (!shouldShowTooltip && isTooltipOpen) {
         mk.closeTooltip();
+        // Rebind as non-permanent for hover behavior
+        const tooltip = mk.getTooltip();
+        if (tooltip) {
+          const tooltipContent = tooltip.getContent();
+          mk.unbindTooltip();
+          mk.bindTooltip(tooltipContent, {
+            permanent: false,
+            direction: 'top',
+            offset: [0, -8],
+            className: 'origin-minimal-label',
+            opacity: 0.95
+          });
+        }
       }
     });
   });
