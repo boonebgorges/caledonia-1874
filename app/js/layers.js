@@ -192,6 +192,17 @@ export function buildOriginsLayer(map) {
 			return hasCoords(p) && !isDescendantOfUSA(handle)
 		})
     .map(([handle, p]) => {
+      // Create tooltip content with full lineage for minimal display
+      let tooltipText = p.name || handle;
+      try {
+        const lineage = typeof placeLineage === 'function'
+          ? placeLineage(handle, { stopTypes: ['Country'] })
+          : null;
+        if (lineage?.text) tooltipText = lineage.text;
+      } catch (err) {
+        console.warn(`Failed to get lineage for ${handle}:`, err);
+      }
+      
       const m = L.marker([p.lat, p.lon], {
         icon: L.divIcon({
           className: 'origin-marker',
@@ -200,6 +211,13 @@ export function buildOriginsLayer(map) {
         })
       })
         .bindPopup(() => originPopupHtml(handle))
+        .bindTooltip(tooltipText, {
+          permanent: false,
+          direction: 'top',
+          offset: [0, -8],
+          className: 'origin-minimal-label',
+          opacity: 0.95
+        })
         .on('click', (ev) => onOriginClick(handle, ev));
 
       registry.set(handle, m);
@@ -218,6 +236,17 @@ export function buildOriginsLayer(map) {
       const isActive = !!activeOrigins && activeOrigins.has(handle);
       el.classList.toggle('is-active', isActive);
       el.classList.toggle('has-active-selection', hasActiveSelection);
+      
+      // Show tooltip for active markers when there's a selection
+      // But only if the marker doesn't already have its popup open
+      const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
+      const isTooltipOpen = mk.isTooltipOpen();
+      
+      if (shouldShowTooltip && !isTooltipOpen) {
+        mk.openTooltip();
+      } else if (!shouldShowTooltip && isTooltipOpen) {
+        mk.closeTooltip();
+      }
     });
   });
 
