@@ -216,9 +216,7 @@ export function buildOriginsLayer(map) {
           direction: 'top',
           offset: [0, -8],
           className: 'origin-minimal-label',
-          opacity: 0.95,
-          interactive: true,  // Make tooltip clickable
-          sticky: true        // Tooltip follows mouse when hovering
+          opacity: 0.95
         })
         .on('click', (ev) => onOriginClick(handle, ev));
 
@@ -228,35 +226,6 @@ export function buildOriginsLayer(map) {
 
   L.featureGroup(markers).addTo(group);
   wireOriginPopupOpen();
-
-  // Wire tooltip clicks to open popup
-  function wireTooltipClicks() {
-    // Keep track of which tooltips have been wired to avoid duplicate listeners
-    const wiredTooltips = new WeakSet();
-    
-    map.on('tooltipopen', (e) => {
-      const tooltip = e.tooltip;
-      const tooltipEl = tooltip.getElement();
-      if (!tooltipEl || !tooltipEl.classList.contains('origin-minimal-label')) return;
-      
-      // Skip if already wired
-      if (wiredTooltips.has(tooltipEl)) return;
-      wiredTooltips.add(tooltipEl);
-      
-      // Find which marker this tooltip belongs to
-      // Store the handle in a data attribute for direct lookup
-      registry.forEach((mk, handle) => {
-        if (mk.getTooltip() === tooltip) {
-          // Add click handler to tooltip to open the popup
-          tooltipEl.addEventListener('click', (ev) => {
-            ev.stopPropagation();
-            onOriginClick(handle, ev);
-          });
-        }
-      });
-    });
-  }
-  wireTooltipClicks();
 
   // React to Store updates (active origins)
   const unsub = Store.subscribe(({ activeOrigins }) => {
@@ -271,15 +240,15 @@ export function buildOriginsLayer(map) {
       // Show tooltip for active markers when there's a selection
       // But only if the marker doesn't already have its popup open
       const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
-      const isTooltipOpen = mk.isTooltipOpen();
       
-      // Get the tooltip instance and make it persistent when shown via selection
+      // Get the tooltip and update its permanent state
       const tooltip = mk.getTooltip();
       if (tooltip) {
-        // Make tooltip permanent (sticky) when activated via parcel selection
-        // This prevents it from closing on mouseout
+        // Make tooltip permanent when shown via selection to prevent auto-close
         tooltip.options.permanent = shouldShowTooltip;
       }
+      
+      const isTooltipOpen = mk.isTooltipOpen();
       
       if (shouldShowTooltip && !isTooltipOpen) {
         mk.openTooltip();

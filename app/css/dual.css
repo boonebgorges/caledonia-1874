@@ -38,16 +38,21 @@ html, body {
   .maps { grid-template-columns: 1fr; }
 }
 /* Marker accent carried over */
+.origin-marker { 
+  cursor: pointer;
+}
+
 .origin-marker .dot { 
   display:inline-block; 
   font-size:16px; 
   line-height:16px;
   transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 /* Fade out non-active markers when there is an active selection */
 .origin-marker.has-active-selection:not(.is-active) .dot {
-  opacity: 0.25;
+  opacity: 0.5;
 }
 
 /* Enhanced highlight for active markers */
@@ -73,7 +78,6 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 600;
-  cursor: pointer; /* Indicate tooltip is clickable */
 }
 
 .origin-minimal-label::before {
