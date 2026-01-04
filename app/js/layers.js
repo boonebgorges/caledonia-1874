@@ -192,6 +192,12 @@ export function buildOriginsLayer(map) {
 			return hasCoords(p) && !isDescendantOfUSA(handle)
 		})
     .map(([handle, p]) => {
+      // Create tooltip content with full lineage for minimal display
+      const lineage = typeof placeLineage === 'function'
+        ? placeLineage(handle, { stopTypes: ['Country'] })
+        : null;
+      const tooltipText = lineage?.text || p.name || handle;
+      
       const m = L.marker([p.lat, p.lon], {
         icon: L.divIcon({
           className: 'origin-marker',
@@ -200,6 +206,13 @@ export function buildOriginsLayer(map) {
         })
       })
         .bindPopup(() => originPopupHtml(handle))
+        .bindTooltip(tooltipText, {
+          permanent: false,
+          direction: 'top',
+          offset: [0, -8],
+          className: 'origin-minimal-label',
+          opacity: 0.95
+        })
         .on('click', (ev) => onOriginClick(handle, ev));
 
       registry.set(handle, m);
@@ -218,6 +231,13 @@ export function buildOriginsLayer(map) {
       const isActive = !!activeOrigins && activeOrigins.has(handle);
       el.classList.toggle('is-active', isActive);
       el.classList.toggle('has-active-selection', hasActiveSelection);
+      
+      // Show tooltip for active markers when there's a selection
+      if (isActive && hasActiveSelection) {
+        mk.openTooltip();
+      } else {
+        mk.closeTooltip();
+      }
     });
   });
 

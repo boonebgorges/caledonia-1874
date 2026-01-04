@@ -58,6 +58,27 @@ html, body {
   box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
 }
 
+/* Minimal tooltip labels for highlighted origins */
+.origin-minimal-label {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 107, 53, 0.6);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 600;
+}
+
+.origin-minimal-label::before {
+  display: none; /* Hide the default Leaflet tooltip arrow */
+}
+
   /* Layout below the maps */
   #detail-ui.ui-grid {
     display: grid;
