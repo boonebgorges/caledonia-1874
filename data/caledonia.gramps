@@ -3,7 +3,7 @@
 "http://gramps-project.org/xml/1.7.2/grampsxml.dtd">
 <database xmlns="http://gramps-project.org/xml/1.7.2/">
   <header>
-    <created date="2025-10-26" version="6.0.1"/>
+    <created date="2026-01-03" version="6.0.5"/>
     <researcher>
     </researcher>
   </header>
@@ -153,6 +153,26 @@
       <type>Death</type>
       <dateval val="1914-06-11"/>
       <place hlink="_1005557c7a3e415f337ea8dc3275"/>
+    </event>
+    <event handle="_1008ce625fe5bb6c8efc607d0d9" change="1763000833" id="E0327">
+      <type>Birth</type>
+      <dateval val="1797-11-04"/>
+      <place hlink="_ffbd7511e184f18b646efb2b5e7"/>
+    </event>
+    <event handle="_1008ce66f557140248e30e561bf6" change="1763000863" id="E0328">
+      <type>Death</type>
+      <dateval val="1846-11-05"/>
+      <place hlink="_ffb0b8b77fb46722d75531c0abe"/>
+    </event>
+    <event handle="_1008ce6c6493545bec8af7b060ed" change="1763000899" id="E0329">
+      <type>Birth</type>
+      <dateval val="1797"/>
+      <place hlink="_ffa415743ce378ca27d042d7ff8"/>
+    </event>
+    <event handle="_1008ce6e5665539bbbb45fd7d004" change="1763000912" id="E0330">
+      <type>Death</type>
+      <dateval val="1845-01-11"/>
+      <place hlink="_ffb0b8b77fb46722d75531c0abe"/>
     </event>
     <event handle="_ffa3bc98c485625ff93a1d82658" change="1756741930" id="E0000">
       <type>Birth</type>
@@ -549,10 +569,10 @@
       <dateval val="1867-02-24"/>
       <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
     </event>
-    <event handle="_ffab7730bc963bbc8fb4bbbfdc4" change="1757250087" id="E0081">
+    <event handle="_ffab7730bc963bbc8fb4bbbfdc4" change="1763000997" id="E0081">
       <type>Birth</type>
-      <dateval val="1827-01-16"/>
-      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+      <dateval val="1821-01-16"/>
+      <place hlink="_ffbd7511e184f18b646efb2b5e7"/>
     </event>
     <event handle="_ffab779a6ec578dac3a4c1f2137" change="1756949444" id="E0082">
       <type>Death</type>
@@ -2197,7 +2217,7 @@
       <childof hlink="_ffab789623d550e2081d394f37d"/>
       <parentin hlink="_ffab6cbee444398d36b49d3723f"/>
     </person>
-    <person handle="_ffab76eee2475743100569eff81" change="1758160050" id="I0029">
+    <person handle="_ffab76eee2475743100569eff81" change="1763000950" id="I0029">
       <gender>M</gender>
       <name type="Birth Name">
         <first>Friedrich</first>
@@ -2209,6 +2229,7 @@
       <eventref hlink="_ffbd7514ca57911854fcb5ce3d9" role="Primary"/>
       <eventref hlink="_ffb6aaf5d2929a4e3ee1c8221a7" role="Primary"/>
       <attribute type="family_id" value="viergutz-döringshagen"/>
+      <childof hlink="_1008ce6f53d124759db4be9d2193"/>
       <parentin hlink="_ffab781cc11dbfb116d143a034"/>
     </person>
     <person handle="_ffab789b10a19bf0a5e8852a306" change="1758159537" id="I0030">
@@ -2510,7 +2531,7 @@
       <attribute type="family_id" value="krueger-2"/>
       <parentin hlink="_ffb0a2bdcbb2cf25369e194d390"/>
     </person>
-    <person handle="_ffb0b8d023824ba2d453eb43ef5" change="1758156975" id="I0055">
+    <person handle="_ffb0b8d023824ba2d453eb43ef5" change="1763001044" id="I0055">
       <gender>M</gender>
       <name type="Birth Name">
         <first>Johann</first>
@@ -2519,7 +2540,7 @@
       <eventref hlink="_ffb0b918175aa22b38603097ff" role="Primary"/>
       <eventref hlink="_ffb0b967ebbf446be1d9ac4124" role="Primary"/>
       <attribute type="family_id" value="huebner"/>
-      <attribute type="family_id" value="viergutz-maldewin"/>
+      <attribute type="family_id" value="viergutz"/>
       <childof hlink="_ffcd14a02624073f0790db35929"/>
       <parentin hlink="_ffb0bbb0bf812da88e760909a50"/>
     </person>
@@ -3382,25 +3403,30 @@
       <attribute type="family_id" value="tesch"/>
       <parentin hlink="_ffcab32d90741979ddc2732574f"/>
     </person>
-    <person handle="_ffcd14a43a23d491e95e6951509" change="1758156886" id="I0131">
+    <person handle="_ffcd14a43a23d491e95e6951509" change="1763000913" id="I0131">
       <gender>M</gender>
       <name type="Birth Name">
-        <first>Christian</first>
+        <first>Christian Friedrich</first>
         <surname>Huebner</surname>
       </name>
+      <eventref hlink="_1008ce6c6493545bec8af7b060ed" role="Primary"/>
+      <eventref hlink="_1008ce6e5665539bbbb45fd7d004" role="Primary"/>
       <attribute type="family_id" value="huebner"/>
       <parentin hlink="_ffcd14a02624073f0790db35929"/>
     </person>
-    <person handle="_ffcd14c559d4ec8a414899a743" change="1758160065" id="I0132">
+    <person handle="_ffcd14c559d4ec8a414899a743" change="1763001021" id="I0132">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Friedricke</first>
         <surname>Viergutz</surname>
       </name>
-      <attribute type="family_id" value="viergutz-maldewin"/>
+      <eventref hlink="_1008ce625fe5bb6c8efc607d0d9" role="Primary"/>
+      <eventref hlink="_1008ce66f557140248e30e561bf6" role="Primary"/>
+      <attribute type="family_id" value="viergutz"/>
       <parentin hlink="_ffcd14a02624073f0790db35929"/>
+      <parentin hlink="_1008ce6f53d124759db4be9d2193"/>
     </person>
-    <person handle="_ffcd151d53f377f388d6d067b44" change="1758156945" id="I0133">
+    <person handle="_ffcd151d53f377f388d6d067b44" change="1763001036" id="I0133">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Ernestine Caroline</first>
@@ -3409,7 +3435,7 @@
       <eventref hlink="_ffcd155498d5ffe0506f86fea59" role="Primary"/>
       <eventref hlink="_ffcd15754b4507a34d4d2d4746b" role="Primary"/>
       <attribute type="family_id" value="huebner"/>
-      <attribute type="family_id" value="viergutz-maldewin"/>
+      <attribute type="family_id" value="viergutz"/>
       <childof hlink="_ffcd14a02624073f0790db35929"/>
       <parentin hlink="_ffcd1595adc1625b84b77a294fd"/>
     </person>
@@ -3553,6 +3579,11 @@
       <rel type="Married"/>
       <father hlink="_100555358d40625cabd17202d972"/>
       <mother hlink="_1005557612cf717f4583aab96f39"/>
+    </family>
+    <family handle="_1008ce6f53d124759db4be9d2193" change="1763000950" id="F0079">
+      <rel type="Unknown"/>
+      <mother hlink="_ffcd14c559d4ec8a414899a743"/>
+      <childref hlink="_ffab76eee2475743100569eff81"/>
     </family>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
       <rel type="Married"/>
