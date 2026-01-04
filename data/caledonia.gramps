@@ -3,7 +3,7 @@
 "http://gramps-project.org/xml/1.7.2/grampsxml.dtd">
 <database xmlns="http://gramps-project.org/xml/1.7.2/">
   <header>
-    <created date="2025-10-24" version="6.0.1"/>
+    <created date="2025-10-26" version="6.0.1"/>
     <researcher>
     </researcher>
   </header>
@@ -88,6 +88,71 @@
       <type>Death</type>
       <dateval val="1873-01-09"/>
       <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_1004edee272c42b4eb5b765ee318" change="1761335772" id="E0314">
+      <type>Birth</type>
+      <dateval val="1800"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_1004edf55fec2b4a9080acb97319" change="1761335819" id="E0315">
+      <type>Birth</type>
+      <dateval val="1802"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_1004edfb265f6adaad3856dcc336" change="1761335857" id="E0316">
+      <type>Birth</type>
+      <dateval val="1833-02-16"/>
+      <place hlink="_1004e99af7ff2654b00fc5a50506"/>
+    </event>
+    <event handle="_1004edfdddad6a148faed37738f4" change="1761335875" id="E0317">
+      <type>Death</type>
+      <dateval val="1917-10-07"/>
+      <place hlink="_ffa3bda9270fe9d5aac9eb0621"/>
+    </event>
+    <event handle="_1004ee6eaa07554ee434c350d88d" change="1761336705" id="E0318">
+      <type>Birth</type>
+      <dateval val="1839-04-13"/>
+      <place hlink="_1004ee795c7a69c1dba1cb8d3fb6"/>
+    </event>
+    <event handle="_1004ee807198675da20667cf3125" change="1761336730" id="E0319">
+      <type>Death</type>
+      <dateval val="1911-03-09"/>
+      <place hlink="_1004ee795c7a69c1dba1cb8d3fb6"/>
+    </event>
+    <event handle="_1005553b0dc97388710927ff5f28" change="1761509081" id="E0320">
+      <type>Birth</type>
+      <dateval val="1834-09-26"/>
+      <place hlink="_1004e99af7ff2654b00fc5a50506"/>
+    </event>
+    <event handle="_100555564049250bb274dd9844a5" change="1761509259" id="E0321">
+      <type>Death</type>
+      <dateval val="1907-08-24"/>
+      <place hlink="_10055555db135a418aed85eb2bc4"/>
+    </event>
+    <event handle="_10055563334a3617ebac2c935ee9" change="1761509344" id="E0322">
+      <type>Birth</type>
+      <dateval val="1800" type="about"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_10055570156a96d86169a483060" change="1761509428" id="E0323">
+      <type>Birth</type>
+      <dateval val="1807"/>
+      <place hlink="_ffa416e066b5fab2478c54439f7"/>
+    </event>
+    <event handle="_1005557414894c3bb6f0f995b3fd" change="1761509455" id="E0324">
+      <type>Marriage</type>
+      <dateval val="1832-07-23"/>
+      <place hlink="_ffab10288c92c3bb3d3fd681492"/>
+    </event>
+    <event handle="_100555794c293bf4198e53734681" change="1761509489" id="E0325">
+      <type>Birth</type>
+      <dateval val="1839-07-02"/>
+      <place hlink="_ffab10288c92c3bb3d3fd681492"/>
+    </event>
+    <event handle="_1005557cab4a7ec166ad98e05c15" change="1761509511" id="E0326">
+      <type>Death</type>
+      <dateval val="1914-06-11"/>
+      <place hlink="_1005557c7a3e415f337ea8dc3275"/>
     </event>
     <event handle="_ffa3bc98c485625ff93a1d82658" change="1756741930" id="E0000">
       <type>Birth</type>
@@ -1638,7 +1703,7 @@
       <eventref hlink="_1004e9d2a484a67b66a576c9d2" role="Primary"/>
       <parentin hlink="_1004e9ca9881158290b73dae4388"/>
     </person>
-    <person handle="_1004e9d35d6c33cef7096723c9b2" change="1761328960" id="I0150">
+    <person handle="_1004e9d35d6c33cef7096723c9b2" change="1761509268" id="I0150">
       <gender>F</gender>
       <name type="Birth Name">
         <first>Rosine Dorothee Auguste</first>
@@ -1647,7 +1712,93 @@
       </name>
       <eventref hlink="_1004e9dac9d52de429879c153c1b" role="Primary"/>
       <eventref hlink="_1004e9ddabf06af3b45377fbfda0" role="Primary"/>
+      <childof hlink="_1004ede4f9f984397d073be7752"/>
       <parentin hlink="_1004e9ca9881158290b73dae4388"/>
+    </person>
+    <person handle="_1004edeb5e286279aad7b704b0d2" change="1761335880" id="I0151">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Ernst Wilhelm</first>
+        <surname>Spengler</surname>
+      </name>
+      <eventref hlink="_1004edee272c42b4eb5b765ee318" role="Primary"/>
+      <attribute type="family_id" value="spengler"/>
+      <parentin hlink="_1004ede4f9f984397d073be7752"/>
+    </person>
+    <person handle="_1004edf124f973655528ca7d1080" change="1761335880" id="I0152">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Johanne Marie</first>
+        <surname>Meier</surname>
+      </name>
+      <eventref hlink="_1004edf55fec2b4a9080acb97319" role="Primary"/>
+      <attribute type="family_id" value="meier"/>
+      <parentin hlink="_1004ede4f9f984397d073be7752"/>
+    </person>
+    <person handle="_1004edf800d2384ce17ab19c0038" change="1761509268" id="I0153">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Heinrich Friedrich Theodor</first>
+        <call>Theodor</call>
+        <surname>Spengler</surname>
+      </name>
+      <eventref hlink="_1004edfb265f6adaad3856dcc336" role="Primary"/>
+      <eventref hlink="_1004edfdddad6a148faed37738f4" role="Primary"/>
+      <childof hlink="_1004ede4f9f984397d073be7752"/>
+      <parentin hlink="_1004ee695c82282dec22e24e393f"/>
+    </person>
+    <person handle="_1004ee6b00ba147387c65ce1bed8" change="1761336927" id="I0154">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Levina</first>
+        <surname>Leiby</surname>
+      </name>
+      <eventref hlink="_1004ee6eaa07554ee434c350d88d" role="Primary"/>
+      <eventref hlink="_1004ee807198675da20667cf3125" role="Primary"/>
+      <attribute type="family_id" value="leiby"/>
+      <parentin hlink="_1004ee695c82282dec22e24e393f"/>
+    </person>
+    <person handle="_100555358d40625cabd17202d972" change="1761509549" id="I0155">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Heinrich Friedrich Hermann</first>
+        <call>Hermann</call>
+        <surname>Spengler</surname>
+      </name>
+      <eventref hlink="_1005553b0dc97388710927ff5f28" role="Primary"/>
+      <eventref hlink="_100555564049250bb274dd9844a5" role="Primary"/>
+      <childof hlink="_1004ede4f9f984397d073be7752"/>
+      <parentin hlink="_1005557e8922450daaefbc93ec9e"/>
+    </person>
+    <person handle="_1005555ca1af7404d84d049deff2" change="1761509520" id="I0156">
+      <gender>M</gender>
+      <name type="Birth Name">
+        <first>Johann Friedrich</first>
+        <surname>Pribnow</surname>
+      </name>
+      <eventref hlink="_10055563334a3617ebac2c935ee9" role="Primary"/>
+      <attribute type="family_id" value="pribnow"/>
+      <parentin hlink="_10055559a1905be53418ec42eb89"/>
+    </person>
+    <person handle="_1005556432bf24942af93516da67" change="1761509520" id="I0157">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Friedricke</first>
+        <surname>Koeller</surname>
+      </name>
+      <eventref hlink="_10055570156a96d86169a483060" role="Primary"/>
+      <parentin hlink="_10055559a1905be53418ec42eb89"/>
+    </person>
+    <person handle="_1005557612cf717f4583aab96f39" change="1761509549" id="I0158">
+      <gender>F</gender>
+      <name type="Birth Name">
+        <first>Johanne Caroline Luise</first>
+        <surname>Pribnow</surname>
+      </name>
+      <eventref hlink="_100555794c293bf4198e53734681" role="Primary"/>
+      <eventref hlink="_1005557cab4a7ec166ad98e05c15" role="Primary"/>
+      <childof hlink="_10055559a1905be53418ec42eb89"/>
+      <parentin hlink="_1005557e8922450daaefbc93ec9e"/>
     </person>
     <person handle="_ffa387d5ee82caa64db99a85a71" change="1757975113" id="I0000">
       <gender>M</gender>
@@ -1939,7 +2090,7 @@
       <attribute type="family_id" value="krueger"/>
       <parentin hlink="_ffaaa43276b1b89f5d214f55557"/>
     </person>
-    <person handle="_ffab0e6fcc716503bd238d70c5c" change="1758158962" id="I0021">
+    <person handle="_ffab0e6fcc716503bd238d70c5c" change="1761509520" id="I0021">
       <gender>M</gender>
       <name type="Birth Name">
         <first>Ernst Friedrich</first>
@@ -1951,6 +2102,7 @@
       <eventref hlink="_ffab0f28c926eb654f399e403c6" role="Primary"/>
       <eventref hlink="_ffad347c79724e86a3b893fdd11" role="Primary"/>
       <attribute type="family_id" value="pribnow"/>
+      <childof hlink="_10055559a1905be53418ec42eb89"/>
       <parentin hlink="_ffab0f379e127829ba7754f5b78"/>
     </person>
     <person handle="_ffab0f4916d590b1ed3cda2fa87" change="1758159838" id="I0022">
@@ -3376,6 +3528,32 @@
       <mother hlink="_1004e9d35d6c33cef7096723c9b2"/>
       <attribute type="family_id" value="riemenschneider"/>
     </family>
+    <family handle="_1004ede4f9f984397d073be7752" change="1761509268" id="F0075">
+      <rel type="Unknown"/>
+      <father hlink="_1004edeb5e286279aad7b704b0d2"/>
+      <mother hlink="_1004edf124f973655528ca7d1080"/>
+      <childref hlink="_1004e9d35d6c33cef7096723c9b2"/>
+      <childref hlink="_1004edf800d2384ce17ab19c0038"/>
+      <childref hlink="_100555358d40625cabd17202d972"/>
+    </family>
+    <family handle="_1004ee695c82282dec22e24e393f" change="1761336619" id="F0076">
+      <rel type="Unknown"/>
+      <father hlink="_1004edf800d2384ce17ab19c0038"/>
+      <mother hlink="_1004ee6b00ba147387c65ce1bed8"/>
+    </family>
+    <family handle="_10055559a1905be53418ec42eb89" change="1761509520" id="F0077">
+      <rel type="Unknown"/>
+      <father hlink="_1005555ca1af7404d84d049deff2"/>
+      <mother hlink="_1005556432bf24942af93516da67"/>
+      <eventref hlink="_1005557414894c3bb6f0f995b3fd" role="Family"/>
+      <childref hlink="_ffab0e6fcc716503bd238d70c5c"/>
+      <childref hlink="_1005557612cf717f4583aab96f39"/>
+    </family>
+    <family handle="_1005557e8922450daaefbc93ec9e" change="1761509549" id="F0078">
+      <rel type="Married"/>
+      <father hlink="_100555358d40625cabd17202d972"/>
+      <mother hlink="_1005557612cf717f4583aab96f39"/>
+    </family>
     <family handle="_ffa41dc910616f83d015b92c84f" change="1756752147" id="F0000">
       <rel type="Married"/>
       <father hlink="_ffa387d5ee82caa64db99a85a71"/>
@@ -3862,6 +4040,32 @@
       <pname value="Eimen"/>
       <coord long="9.7794968231798" lat="51.87657045718927"/>
       <placeref hlink="_1004e9b9f6de3b97e9c7fb32d4a3"/>
+    </placeobj>
+    <placeobj handle="_1004ee71728919dc8d1feea3b1ee" change="1761336632" id="P0115" type="State">
+      <pname value="Pennsylvania"/>
+      <placeref hlink="_ffa417700424946e42d5c5c5fe1"/>
+    </placeobj>
+    <placeobj handle="_1004ee72ed0b11949e6d2a292893" change="1761336642" id="P0116" type="County">
+      <pname value="Schuykill"/>
+      <placeref hlink="_1004ee71728919dc8d1feea3b1ee"/>
+    </placeobj>
+    <placeobj handle="_1004ee795c7a69c1dba1cb8d3fb6" change="1761336684" id="P0117" type="Township">
+      <pname value="West Penn"/>
+      <coord long="-75.96113549204492" lat="40.74292834948967"/>
+      <placeref hlink="_1004ee72ed0b11949e6d2a292893"/>
+    </placeobj>
+    <placeobj handle="_1005554d81e366dc19712c6e4d54" change="1761509202" id="P0118" type="County">
+      <pname value="Clark"/>
+      <placeref hlink="_ffa4178d993127f421835b1fc46"/>
+    </placeobj>
+    <placeobj handle="_10055555db135a418aed85eb2bc4" change="1761509257" id="P0119" type="Village">
+      <pname value="Dorchester"/>
+      <coord long="-90.33557462028364" lat="45.001911403398175"/>
+      <placeref hlink="_1005554d81e366dc19712c6e4d54"/>
+    </placeobj>
+    <placeobj handle="_1005557c7a3e415f337ea8dc3275" change="1761509510" id="P0120" type="County">
+      <pname value="Wood"/>
+      <placeref hlink="_ffa4178d993127f421835b1fc46"/>
     </placeobj>
     <placeobj handle="_ffa3bc8a3262a63372def9507fe" change="1756753285" id="P0000" type="Village">
       <pname value="Ludwigsthal"/>
