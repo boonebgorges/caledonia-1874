@@ -203,10 +203,13 @@ export function buildOriginsLayer(map) {
 
   // React to Store updates (active origins)
   const unsub = Store.subscribe(({ activeOrigins }) => {
+    const hasActiveSelection = !!activeOrigins && activeOrigins.size > 0;
     registry.forEach((mk, handle) => {
       const el = mk.getElement(); // divIcon root
       if (!el) return;
-      el.classList.toggle('is-active', !!activeOrigins && activeOrigins.has(handle));
+      const isActive = !!activeOrigins && activeOrigins.has(handle);
+      el.classList.toggle('is-active', isActive);
+      el.classList.toggle('has-active-selection', hasActiveSelection);
     });
   });
 
