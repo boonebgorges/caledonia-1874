@@ -42,7 +42,7 @@ html, body {
   display:inline-block; 
   font-size:16px; 
   line-height:16px;
-  transition: opacity 0.3s ease, transform 0.2s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Fade out non-active markers when there is an active selection */
