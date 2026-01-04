@@ -233,7 +233,8 @@ export function buildOriginsLayer(map) {
       el.classList.toggle('has-active-selection', hasActiveSelection);
       
       // Show tooltip for active markers when there's a selection
-      if (isActive && hasActiveSelection) {
+      // But only if the marker doesn't already have its popup open
+      if (isActive && hasActiveSelection && !mk.isPopupOpen()) {
         mk.openTooltip();
       } else {
         mk.closeTooltip();
