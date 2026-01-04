@@ -240,38 +240,11 @@ export function buildOriginsLayer(map) {
       // Show tooltip for active markers when there's a selection
       // But only if the marker doesn't already have its popup open
       const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
-      const isTooltipOpen = mk.isTooltipOpen();
       
-      if (shouldShowTooltip && !isTooltipOpen) {
-        // Get current tooltip and unbind/rebind with permanent option
-        const tooltip = mk.getTooltip();
-        if (tooltip) {
-          const tooltipContent = tooltip.getContent();
-          mk.unbindTooltip();
-          mk.bindTooltip(tooltipContent, {
-            permanent: true,  // Make it permanent when opened via selection
-            direction: 'top',
-            offset: [0, -8],
-            className: 'origin-minimal-label',
-            opacity: 0.95
-          });
-        }
+      if (shouldShowTooltip) {
         mk.openTooltip();
-      } else if (!shouldShowTooltip && isTooltipOpen) {
+      } else if (!shouldShowTooltip) {
         mk.closeTooltip();
-        // Rebind as non-permanent for hover behavior
-        const tooltip = mk.getTooltip();
-        if (tooltip) {
-          const tooltipContent = tooltip.getContent();
-          mk.unbindTooltip();
-          mk.bindTooltip(tooltipContent, {
-            permanent: false,
-            direction: 'top',
-            offset: [0, -8],
-            className: 'origin-minimal-label',
-            opacity: 0.95
-          });
-        }
       }
     });
   });
