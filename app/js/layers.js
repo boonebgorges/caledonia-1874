@@ -243,7 +243,9 @@ export function buildOriginsLayer(map) {
       
       if (shouldShowTooltip) {
         mk.openTooltip();
-      } else if (!shouldShowTooltip) {
+      } else if (isActive === false && hasActiveSelection) {
+        // Only close tooltip if this marker is not active but there is a selection
+        // This allows normal hover tooltips to work when no selection is active
         mk.closeTooltip();
       }
     });
