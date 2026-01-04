@@ -47,6 +47,10 @@ function isCommitGesture(ev) {
 let ORIGINS_API = null;
 let PARCELS_API = null;
 
+// Keep references to maps so we can close popups on the other map
+let MAP_ORIGINS = null;
+let MAP_PARCELS = null;
+
 function emit(origin, detail) {
   window.dispatchEvent(new CustomEvent(origin, { detail }));
 }
@@ -73,6 +77,7 @@ function safeOwnersWithOriginsForKey(key) {
 // -----------------------------------------------------------------------------
 
 export function buildOriginsLayer(map) {
+  MAP_ORIGINS = map;
   const group = L.layerGroup().addTo(map);
   const registry = new Map(); // handle -> marker
 
@@ -121,6 +126,9 @@ export function buildOriginsLayer(map) {
 
   // Map-side highlight only (no panel selection)
   function highlightOrigin(handle) {
+    // Close popups on the other map (Parcels)
+    if (MAP_PARCELS) MAP_PARCELS.closePopup();
+    
     const parcelKeys = (Data.originParcelIndex || {})[handle] || [];
     Store.setActiveOrigins([handle]);
     Store.setActiveParcels(parcelKeys);
@@ -258,6 +266,7 @@ export function buildOriginsLayer(map) {
 // -----------------------------------------------------------------------------
 
 export function buildParcelsLayer(map) {
+  MAP_PARCELS = map;
   const byKey = new Map();
 
   const baseStyle = { color: '#333', weight: 2, fillOpacity: 0.15 };
@@ -288,6 +297,9 @@ export function buildParcelsLayer(map) {
   }
 
   function highlightParcel(key) {
+    // Close popups on the other map (Origins)
+    if (MAP_ORIGINS) MAP_ORIGINS.closePopup();
+    
     // Turn on parcel + related origins
     Store.setActiveParcels([key]);
     Store.setActiveOrigins(safeGetOriginsForParcel(key));
