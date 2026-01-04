@@ -237,17 +237,16 @@ export function buildOriginsLayer(map) {
       el.classList.toggle('is-active', isActive);
       el.classList.toggle('has-active-selection', hasActiveSelection);
       
-      // Manage tooltips only when there's an active selection
-      if (hasActiveSelection) {
-        // Show tooltip for active markers, but only if popup is not open
-        if (isActive && !mk.isPopupOpen()) {
-          mk.openTooltip();
-        } else if (!isActive) {
-          // Close tooltips for non-active markers when there's a selection
-          mk.closeTooltip();
-        }
+      // Show tooltip for active markers when there's a selection
+      // But only if the marker doesn't already have its popup open
+      const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
+      const isTooltipOpen = mk.isTooltipOpen();
+      
+      if (shouldShowTooltip && !isTooltipOpen) {
+        mk.openTooltip();
+      } else if (!shouldShowTooltip && isTooltipOpen) {
+        mk.closeTooltip();
       }
-      // When no selection, don't interfere with tooltips (allows hover to work)
     });
   });
 
