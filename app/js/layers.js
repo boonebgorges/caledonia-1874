@@ -216,7 +216,9 @@ export function buildOriginsLayer(map) {
           direction: 'top',
           offset: [0, -8],
           className: 'origin-minimal-label',
-          opacity: 0.95
+          opacity: 0.95,
+          interactive: true,  // Make tooltip clickable
+          sticky: true        // Tooltip follows mouse when hovering
         })
         .on('click', (ev) => onOriginClick(handle, ev));
 
@@ -226,6 +228,27 @@ export function buildOriginsLayer(map) {
 
   L.featureGroup(markers).addTo(group);
   wireOriginPopupOpen();
+
+  // Wire tooltip clicks to open popup
+  function wireTooltipClicks() {
+    map.on('tooltipopen', (e) => {
+      const tooltip = e.tooltip;
+      const tooltipEl = tooltip.getElement();
+      if (!tooltipEl || !tooltipEl.classList.contains('origin-minimal-label')) return;
+      
+      // Find which marker this tooltip belongs to
+      registry.forEach((mk, handle) => {
+        if (mk.getTooltip() === tooltip) {
+          // Add click handler to tooltip to open the popup
+          tooltipEl.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            onOriginClick(handle, ev);
+          });
+        }
+      });
+    });
+  }
+  wireTooltipClicks();
 
   // React to Store updates (active origins)
   const unsub = Store.subscribe(({ activeOrigins }) => {
@@ -241,6 +264,14 @@ export function buildOriginsLayer(map) {
       // But only if the marker doesn't already have its popup open
       const shouldShowTooltip = isActive && hasActiveSelection && !mk.isPopupOpen();
       const isTooltipOpen = mk.isTooltipOpen();
+      
+      // Get the tooltip instance and make it persistent when shown via selection
+      const tooltip = mk.getTooltip();
+      if (tooltip) {
+        // Make tooltip permanent (sticky) when activated via parcel selection
+        // This prevents it from closing on mouseout
+        tooltip.options.permanent = shouldShowTooltip;
+      }
       
       if (shouldShowTooltip && !isTooltipOpen) {
         mk.openTooltip();

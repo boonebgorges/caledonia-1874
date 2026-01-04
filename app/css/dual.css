@@ -73,6 +73,7 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 600;
+  cursor: pointer; /* Indicate tooltip is clickable */
 }
 
 .origin-minimal-label::before {
